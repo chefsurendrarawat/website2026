@@ -6,6 +6,7 @@ import OrganizationsTicker from '@/components/OrganizationsTicker.astro'
 import Journey from '@/components/Journey.astro'
 import Philosophy from '@/components/Philosophy.astro'
 import Dishes from '@/components/Dishes.astro'
+import ACF from '@/components/ACF.astro'
 import Awards from '@/components/Awards.astro'
 import Press from '@/components/Press.astro'
 import Restaurant from '@/components/Restaurant.astro'
@@ -42,6 +43,8 @@ const settings = await fetchSanity(siteSettingsQuery)
     <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
     <Dishes items={dishes} />
     <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <ACF />
+    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
     <Awards items={awards} />
     <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
     <Restaurant reviews={reviews} />
