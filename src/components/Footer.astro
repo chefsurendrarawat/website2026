@@ -1,0 +1,39 @@
+---
+const { settings } = Astro.props
+const year = new Date().getFullYear()
+---
+<footer class="py-12 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-himalayan-blue to-royal-blue text-white">
+  <div class="container mx-auto max-w-7xl">
+    <div class="grid md:grid-cols-3 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-3 mb-3">
+          <img src="/icon-192.jpg" alt="" class="w-10 h-10 rounded-full object-cover ring-2 ring-white/30" width="40" height="40" />
+          <h3 class="font-serif text-xl font-bold">Chef Surendra Rawat</h3>
+        </div>
+        <p class="text-white/70 text-sm leading-relaxed mb-3">Executive Chef bringing Himalayan warmth and 16+ years of culinary artistry to every plate.</p>
+        <a href="/chef-surendra-rawat-cv.pdf" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm text-gold-accent hover:text-white transition-colors font-semibold">📄 View CV / Resume</a>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-3">Quick Links</h3>
+        <ul class="space-y-2 text-sm text-white/70">
+          <li><a href="#journey" class="hover:text-white transition-colors">Journey</a></li>
+          <li><a href="#signature-creations" class="hover:text-white transition-colors">Recipes</a></li>
+          <li><a href="#awards" class="hover:text-white transition-colors">Awards</a></li>
+          <li><a href="#contact" class="hover:text-white transition-colors">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-3">Restaurant</h3>
+        <div class="text-sm text-white/70 space-y-2">
+          {settings?.restaurantName && <p>{settings.restaurantName}</p>}
+          {settings?.address && <p>{settings.address}</p>}
+          {settings?.phone && <p>{settings.phone}</p>}
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/20 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-white/60">
+      <p>&copy; {year} Chef Surendra Rawat. All rights reserved.</p>
+      <p>Crafted by <a href="https://withharsh.com" target="_blank" rel="noopener noreferrer" class="text-gold-accent hover:text-white transition-colors font-semibold">withHarsh.com</a></p>
+    </div>
+  </div>
+</footer>

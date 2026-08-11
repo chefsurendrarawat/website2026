@@ -1,0 +1,58 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/Header.astro'
+import Hero from '@/components/Hero.astro'
+import OrganizationsTicker from '@/components/OrganizationsTicker.astro'
+import Journey from '@/components/Journey.astro'
+import Philosophy from '@/components/Philosophy.astro'
+import Dishes from '@/components/Dishes.astro'
+import Awards from '@/components/Awards.astro'
+import Press from '@/components/Press.astro'
+import Restaurant from '@/components/Restaurant.astro'
+import Videos from '@/components/Videos.astro'
+import Gallery from '@/components/Gallery.astro'
+import Contact from '@/components/Contact.astro'
+import Footer from '@/components/Footer.astro'
+import BookBanner from '@/components/BookBanner.astro'
+import { fetchSanity } from '@/lib/sanity'
+import { dishesQuery, timelineQuery, pressQuery, reviewsQuery, awardsQuery, videosQuery, galleryQuery, siteSettingsQuery } from '@/lib/queries'
+
+const dishes = await fetchSanity(dishesQuery)
+const timeline = await fetchSanity(timelineQuery)
+const press = await fetchSanity(pressQuery)
+const reviews = await fetchSanity(reviewsQuery)
+const awards = await fetchSanity(awardsQuery)
+const videos = await fetchSanity(videosQuery)
+const gallery = await fetchSanity(galleryQuery)
+const settings = await fetchSanity(siteSettingsQuery)
+---
+<Layout>
+  <Header />
+  <main id="main-content" class="w-full overflow-hidden">
+    <h1 class="sr-only">Chef Surendra Rawat - Executive Chef in Chicago | Award-Winning Himalayan, Indian, and Nepalese Cuisine Expert</h1>
+    <Hero />
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <BookBanner />
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <OrganizationsTicker />
+    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
+    <Journey items={timeline} />
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <Philosophy />
+    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
+    <Dishes items={dishes} />
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <Awards items={awards} />
+    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
+    <Restaurant reviews={reviews} />
+    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
+    <Press items={press} />
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <Videos items={videos} />
+    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
+    <Gallery items={gallery} />
+    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <Contact settings={settings} />
+  </main>
+  <Footer settings={settings} />
+</Layout>

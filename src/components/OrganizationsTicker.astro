@@ -1,0 +1,22 @@
+---
+const orgs = [
+  { name: "American Culinary Federation", logo: "/images/logos/acf.png" },
+  { name: "Oberoi Hotels", logo: "/images/logos/oberoi-hotels.png" },
+  { name: "Indian Culinary Forum", logo: "/images/logos/indian-culinary-forum.png" },
+  { name: "Chefs Guild India", logo: "/images/logos/chefs-guild-india.png" },
+  { name: "World Chefs", logo: "/images/logos/world-chefs.jpg" },
+  { name: "Veggie Fest", logo: "/images/logos/veggie-fest.png" },
+]
+---
+<section aria-hidden="true" class="py-8 md:py-12 overflow-hidden bg-white">
+  <div class="ticker-mask">
+    <div class="flex animate-ticker">
+      {[...orgs, ...orgs].map(org => (
+        <div class="flex-shrink-0 mx-8 md:mx-12 flex items-center gap-3 opacity-70 hover:opacity-100 transition-opacity">
+          <img src={org.logo} alt={org.name} class="h-10 md:h-14 w-auto object-contain" loading="lazy" />
+          <span class="text-sm font-medium text-mountain-teal hidden md:block">{org.name}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

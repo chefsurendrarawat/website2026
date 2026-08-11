@@ -1,0 +1,41 @@
+---
+const { items = [] } = Astro.props
+const iconMap: Record<string, string> = { MapPin: "\u{1F4CD}", GraduationCap: "\u{1F393}", Briefcase: "\u{1F4BC}", Globe: "\u{1F30D}", Award: "\u{1F3C6}", Compass: "\u{1F9ED}" }
+const colors = ["from-himalayan-blue to-mountain-teal", "from-mountain-teal to-sky-blue", "from-sky-blue to-peacock-green", "from-peacock-green to-gold-accent", "from-gold-accent to-himalayan-blue"]
+---
+{items.length > 0 && (
+<section id="journey" class="py-16 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-sky-50 to-white">
+  <div class="container mx-auto max-w-7xl">
+    <div class="text-center mb-16 space-y-4">
+      <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">The Path</span>
+      <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-himalayan-blue">My Journey</h2>
+      <p class="text-lg md:text-xl text-mountain-teal max-w-3xl mx-auto leading-relaxed">From the mountains to international stages, a story of resilience and never giving up.</p>
+    </div>
+    <div class="relative">
+      <div class="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-himalayan-blue via-gold-accent to-mountain-teal hidden md:block"></div>
+      <div class="space-y-12 md:space-y-0">
+        {items.map((item: any, i: number) => (
+          <div class={`relative md:flex items-center ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:mb-16`}>
+            <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-r items-center justify-center text-xl shadow-lg z-10 text-white">
+              <div class={`w-12 h-12 rounded-full bg-gradient-to-r ${colors[i % colors.length]} flex items-center justify-center text-xl shadow-lg`}>
+                {iconMap[item.icon] || "\u{1F9ED}"}
+              </div>
+            </div>
+            <div class={`md:w-1/2 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
+              <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-himalayan-blue/10 hover:shadow-xl transition-shadow">
+                <div class={`flex items-center gap-3 mb-3 ${i % 2 === 0 ? 'md:justify-end' : ''}`}>
+                  <span class="md:hidden text-2xl">{iconMap[item.icon] || "\u{1F9ED}"}</span>
+                  <p class="text-sm font-bold text-gold-accent uppercase tracking-wide">{item.year}</p>
+                  <span class="text-xs text-mountain-teal">&bull; {item.location}</span>
+                </div>
+                <h3 class="font-serif text-xl md:text-2xl font-bold text-himalayan-blue mb-3">{item.title}</h3>
+                <p class="text-slate-700 leading-relaxed">{item.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+)}

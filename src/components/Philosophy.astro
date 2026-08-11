@@ -1,0 +1,43 @@
+---
+const principles = [
+  { icon: "\u{1F525}", title: "Cooking with Love", description: "My mother taught me: 'Good food is made with love, not just with a bunch of spices.' Every dish carries that lesson." },
+  { icon: "\u2B50", title: "Personalized for You", description: "I believe in customization and personalization through my Himalayan artistry. I make what people like \u2014 each dish tailored to create your perfect experience." },
+  { icon: "\u2764\uFE0F", title: "Artisan Pastries & Desserts", description: "Trained in French patisserie techniques, I create desserts that balance precision with creativity\u2014from molten lava cakes to delicate no-bake cheesecakes." },
+]
+---
+<section id="philosophy" class="py-16 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-ice-blue/20">
+  <div class="container mx-auto max-w-7xl">
+    <div class="text-center mb-12 md:mb-16 space-y-4">
+      <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">Culinary Beliefs</span>
+      <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-himalayan-blue">Philosophy of Flavors</h2>
+      <p class="text-lg md:text-xl text-mountain-teal max-w-3xl mx-auto leading-relaxed">When someone eats my food, I want them to feel something special: curiosity, excitement, or like they're home.</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6">
+        <p class="text-lg text-slate-700 leading-relaxed">When someone eats my food, I hope they feel something special. If it's their first time trying Indian cuisine, I want them to feel curious and excited. If they're missing home, I want them to feel comforted.</p>
+        <p class="text-lg text-slate-700 leading-relaxed">I know people don't always give you a second chance, so I make every meal count. I'm not just cooking food, I'm taking care of people and sharing my culture and heart.</p>
+        <div class="space-y-6 pt-4">
+          {principles.map(p => (
+            <div class="flex gap-4 group">
+              <div class="h-14 w-14 rounded-xl bg-gradient-to-br from-himalayan-blue/10 to-gold-accent/10 flex items-center justify-center shrink-0 border-2 border-himalayan-blue/20 text-2xl">{p.icon}</div>
+              <div>
+                <h3 class="font-serif text-xl font-semibold text-himalayan-blue mb-1">{p.title}</h3>
+                <p class="text-slate-700 leading-relaxed">{p.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-4">
+          <div class="aspect-square rounded-2xl overflow-hidden shadow-lg"><img src="/images/design-mode/Photoroom_20251011_234529.jpg" alt="Chef Surendra Rawat" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" loading="lazy" /></div>
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg"><img src="/beautifully-plated-indian-cuisine.jpg" alt="Plated cuisine" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" loading="lazy" /></div>
+        </div>
+        <div class="space-y-4 pt-8">
+          <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-lg"><img src="/traditional-spices-and-ingredients.jpg" alt="Spices" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" loading="lazy" /></div>
+          <div class="aspect-square rounded-2xl overflow-hidden shadow-lg"><img src="/himalayan-mountain-landscape.jpg" alt="Himalayas" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700" loading="lazy" /></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

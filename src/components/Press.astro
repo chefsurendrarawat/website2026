@@ -1,0 +1,33 @@
+---
+const { items = [] } = Astro.props
+---
+{items.length > 0 && (
+<section id="press" class="py-16 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-white">
+  <div class="container mx-auto max-w-6xl">
+    <div class="text-center mb-12 md:mb-16 space-y-4">
+      <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">Media & Features</span>
+      <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-himalayan-blue">Published Articles</h2>
+      <p class="text-lg md:text-xl text-mountain-teal max-w-3xl mx-auto leading-relaxed">Featured in prestigious culinary publications, festivals, and media outlets.</p>
+    </div>
+    <div class="space-y-4">
+      {items.map((item: any) => (
+        <details class="border border-himalayan-blue/20 rounded-xl overflow-hidden bg-white hover:border-himalayan-blue transition-colors group">
+          <summary class="cursor-pointer list-none px-6 sm:px-8 py-6 flex items-start justify-between gap-4">
+            <h3 class="font-serif text-lg sm:text-xl md:text-2xl font-bold text-himalayan-blue group-hover:text-gold-accent transition-colors leading-tight">{item.title}</h3>
+            <svg class="w-5 h-5 text-himalayan-blue shrink-0 mt-1 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </summary>
+          <div class="px-6 sm:px-8 pb-6 border-t border-himalayan-blue/10 pt-4 space-y-3">
+            <div class="flex flex-wrap items-center gap-3 text-sm">
+              <span class="font-semibold text-himalayan-blue">{item.publication}</span>
+              <span class="text-himalayan-blue/40">&bull;</span>
+              <time class="text-mountain-teal">{item.date}</time>
+            </div>
+            <p class="text-slate-700 leading-relaxed">{item.description}</p>
+            {item.link && <a href={item.link} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors text-sm">Read Full Article <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+)}

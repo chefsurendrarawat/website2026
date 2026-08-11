@@ -1,0 +1,51 @@
+---
+const { reviews = [] } = Astro.props
+const images = [
+  { src: "/images/unnamed-20-286-29.jpg", alt: "Dining Area" },
+  { src: "/images/unnamed.jpg", alt: "Interior" },
+  { src: "/images/unnamed-20-283-29.jpg", alt: "Dining Experience" },
+  { src: "/images/unnamed-20-285-29.jpg", alt: "Buffet" },
+  { src: "/images/unnamed-20-281-29.jpg", alt: "Happy Guests" },
+  { src: "/images/unnamed-20-282-29.jpg", alt: "Ambiance" },
+]
+---
+<section id="restaurant" class="py-16 md:py-24 lg:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-sky-50">
+  <div class="container mx-auto max-w-7xl">
+    <div class="text-center mb-12 md:mb-16 space-y-4">
+      <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">Our Restaurant</span>
+      <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-himalayan-blue">India Palace Restaurant, Wheaton</h2>
+      <p class="text-lg md:text-xl text-mountain-teal max-w-3xl mx-auto leading-relaxed">Where Chef Surendra brings Himalayan warmth to authentic Indian dining.</p>
+    </div>
+    <div class="grid lg:grid-cols-2 gap-12 items-start">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {images.map(img => (
+          <div class="aspect-square rounded-xl overflow-hidden shadow-lg">
+            <img src={img.src} alt={img.alt} class="w-full h-full object-cover hover:scale-110 transition-transform duration-500" loading="lazy" />
+          </div>
+        ))}
+      </div>
+      {reviews.length > 0 && (
+        <div>
+          <h3 class="font-serif text-2xl font-bold text-himalayan-blue mb-6">What Guests Say</h3>
+          <div class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 -mx-2 px-2 scrollbar-hide">
+            {reviews.map((review: any) => (
+              <div class="snap-start flex-shrink-0 w-80 bg-white rounded-xl p-6 shadow-lg border border-himalayan-blue/10">
+                <div class="flex gap-1 mb-3">
+                  {Array.from({length: review.rating}).map(() => <svg class="w-4 h-4 text-gold-accent fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>)}
+                </div>
+                <p class="text-slate-700 text-sm leading-relaxed mb-4 italic">"{review.text}"</p>
+                <p class="text-sm font-semibold text-himalayan-blue">&mdash; {review.author}</p>
+              </div>
+            ))}
+          </div>
+          <div class="mt-6 text-center">
+            <a href="https://maps.app.goo.gl/BpMmxpyMJRCqLSmX7" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-himalayan-blue text-white font-semibold rounded-full hover:bg-royal-blue transition-colors">
+              Visit Us on Google Maps
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

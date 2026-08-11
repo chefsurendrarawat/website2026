@@ -1,0 +1,11 @@
+{
+  "name": "Chef Surendra Rawat",
+  "short_name": "Chef Surendra",
+  "icons": [
+    { "src": "/icon-192.jpg", "sizes": "192x192", "type": "image/jpeg" },
+    { "src": "/icon-512.jpg", "sizes": "512x512", "type": "image/jpeg" }
+  ],
+  "theme_color": "#0066FF",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

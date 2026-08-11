@@ -1,0 +1,84 @@
+---
+import '@/styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = "Chef Surendra Rawat | Executive Chef in Chicago - Award-Winning Himalayan Cuisine",
+  description = "Chef Surendra Rawat - Executive Chef at India Palace Restaurant, Wheaton IL. Award-winning Himalayan, Indian, and Nepalese cuisine. ACF member, 16+ years experience."
+} = Astro.props
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="canonical" href="https://chefsurendrarawat.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/jpeg" sizes="192x192" href="/icon-192.jpg" />
+  <link rel="icon" sizes="32x32" href="/icon-192.jpg" />
+  <link rel="apple-touch-icon" href="/icon-192.jpg" />
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#0066FF" />
+  <meta name="author" content="withHarsh.com" />
+  <meta name="geo.region" content="US-IL" />
+  <meta name="geo.placename" content="Wheaton, Illinois" />
+  <meta name="keywords" content="Chef Surendra Rawat, Executive Chef Chicago, Himalayan Cuisine, Indian Restaurant Wheaton IL, India Palace Restaurant, ACF Chef, Uttarakhand Recipes, Private Dining Chicago, Himalayan Chef" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://chefsurendrarawat.com" />
+  <meta property="og:image" content="https://chefsurendrarawat.com/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:site_name" content="Chef Surendra Rawat" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://chefsurendrarawat.com/og-image.jpg" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Chef Surendra Rawat",
+    "jobTitle": "Executive Chef",
+    "url": "https://chefsurendrarawat.com",
+    "image": "https://chefsurendrarawat.com/icon-192.jpg",
+    "sameAs": [
+      "https://www.instagram.com/chefsurendrarawat/",
+      "https://www.youtube.com/@ChefSurendraRawat",
+      "https://www.linkedin.com/in/surendra-rawat-40b13a96/"
+    ],
+    "worksFor": {
+      "@type": "Restaurant",
+      "name": "India Palace Restaurant",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "242 E Geneva Rd",
+        "addressLocality": "Wheaton",
+        "addressRegion": "IL",
+        "postalCode": "60187",
+        "addressCountry": "US"
+      },
+      "telephone": "+1-224-261-5963"
+    },
+    "memberOf": {
+      "@type": "Organization",
+      "name": "American Culinary Federation"
+    }
+  })} />
+</head>
+<body class="bg-white text-gray-900 overflow-x-hidden">
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <div class="scroll-progress"></div>
+  <slot />
+</body>
+</html>

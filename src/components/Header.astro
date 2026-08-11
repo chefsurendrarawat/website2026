@@ -1,0 +1,28 @@
+---
+const navLinks = [
+  { href: "#journey", label: "Journey" },
+  { href: "#philosophy", label: "Philosophy" },
+  { href: "#signature-creations", label: "Dishes" },
+  { href: "#awards", label: "Awards" },
+  { href: "#restaurant", label: "Restaurant" },
+  { href: "#press", label: "Press" },
+  { href: "#contact", label: "Contact" },
+]
+---
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-himalayan-blue/10 shadow-sm">
+  <nav aria-label="Main navigation" class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 h-16 md:h-20 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-2 font-serif text-lg md:text-xl font-bold text-himalayan-blue">
+      <img src="/icon-192.jpg" alt="" class="w-8 h-8 rounded-full object-cover" width="32" height="32" />
+      Chef Surendra Rawat
+    </a>
+    <input type="checkbox" id="nav-toggle" class="hidden peer" />
+    <label for="nav-toggle" aria-label="Toggle menu" class="md:hidden cursor-pointer p-2">
+      <svg class="w-6 h-6 text-himalayan-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </label>
+    <ul class="hidden peer-checked:flex md:flex flex-col md:flex-row absolute md:relative top-16 md:top-0 left-0 right-0 bg-white md:bg-transparent shadow-lg md:shadow-none p-4 md:p-0 gap-1 md:gap-6 items-center">
+      {navLinks.map(link => (
+        <li><a href={link.href} class="block px-3 py-2 md:p-0 text-sm font-medium text-mountain-teal hover:text-himalayan-blue transition-colors">{link.label}</a></li>
+      ))}
+    </ul>
+  </nav>
+</header>
