@@ -3,6 +3,7 @@ import Layout from '@/layouts/Layout.astro'
 import Header from '@/components/Header.astro'
 import Hero from '@/components/Hero.astro'
 import BookBanner from '@/components/BookBanner.astro'
+import BookAd from '@/components/BookAd.astro'
 import OrganizationsTicker from '@/components/OrganizationsTicker.astro'
 import SocialBanner from '@/components/SocialBanner.astro'
 import Footer from '@/components/Footer.astro'
@@ -43,7 +44,7 @@ function getYouTubeId(url: string): string | null {
         {dishes.slice(0, 4).map((dish: any) => (
           <div class="glass-card rounded-xl overflow-hidden card-hover group">
             <div class="relative h-48 overflow-hidden img-zoom">
-              {dish.image && <img src={urlFor(dish.image).width(400).height(300).url()} alt={dish.name} class="w-full h-full object-cover" loading="lazy" />}
+              {dish.image && <img src={urlFor(dish.image).width(400).height(300).url()} alt={dish.name} class="w-full h-full object-cover cursor-pointer" loading="lazy" data-lightbox />}
               <span class="absolute top-3 right-3 px-2 py-0.5 bg-himalayan-blue text-white text-xs font-semibold rounded-full">{dish.category}</span>
             </div>
             <div class="p-4">
@@ -80,6 +81,9 @@ function getYouTubeId(url: string): string | null {
       </div>
     </div>
   </section>
+
+  <!-- Book Ad Strip -->
+  <BookAd variant="strip" poster="/images/book/poster-3.jpg" />
 
   <!-- Videos Preview -->
   {videos.length > 0 && (
@@ -186,6 +190,9 @@ function getYouTubeId(url: string): string | null {
 
   <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
   <SocialBanner />
+
+  <!-- Book Ad Strip (bottom) -->
+  <BookAd variant="strip" poster="/images/book/poster-2.jpg" />
 
   <Footer slot="footer" settings={settings} />
 </Layout>

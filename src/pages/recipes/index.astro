@@ -29,7 +29,7 @@ const settings = await fetchSanity(siteSettingsQuery)
           <details class="group glass-card rounded-xl overflow-hidden card-hover">
             <summary class="cursor-pointer list-none">
               <div class="relative h-56 overflow-hidden img-zoom">
-                {dish.image && <img src={urlFor(dish.image).width(600).height(400).url()} alt={dish.name} class="w-full h-full object-cover" loading="lazy" />}
+                {dish.image && <img src={urlFor(dish.image).width(600).height(400).url()} alt={dish.name} class="w-full h-full object-cover cursor-pointer" loading="lazy" data-lightbox />}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                 <span class="absolute top-3 right-3 px-3 py-1 bg-himalayan-blue text-white text-xs font-semibold rounded-full">{dish.category}</span>
               </div>

@@ -32,7 +32,7 @@ const settings = await fetchSanity(siteSettingsQuery)
           <div class="rounded-xl overflow-hidden glass-card card-hover group">
             {award.image && (
               <div class="relative h-48 overflow-hidden bg-gray-50 img-zoom">
-                <img src={urlFor(award.image).width(400).height(300).url()} alt={award.title} class="w-full h-full object-cover" loading="lazy" />
+                <img src={urlFor(award.image).width(400).height(300).url()} alt={award.title} class="w-full h-full object-cover cursor-pointer" loading="lazy" data-lightbox />
               </div>
             )}
             <div class="p-5 space-y-2">
