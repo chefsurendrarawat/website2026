@@ -29,7 +29,7 @@ const settings = await fetchSanity(siteSettingsQuery)
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
         {awards.map((award: any) => (
-          <div class="rounded-xl overflow-hidden bg-white shadow-lg border border-himalayan-blue/10 card-hover group">
+          <div class="rounded-xl overflow-hidden glass-card card-hover group">
             {award.image && (
               <div class="relative h-48 overflow-hidden bg-gray-50 img-zoom">
                 <img src={urlFor(award.image).width(400).height(300).url()} alt={award.title} class="w-full h-full object-cover" loading="lazy" />

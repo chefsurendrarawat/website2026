@@ -37,7 +37,7 @@ const stats = [
   <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
     <div class="container mx-auto max-w-7xl grid sm:grid-cols-2 gap-8 stagger-children">
       {services.map(s => (
-        <div class="bg-white rounded-2xl p-8 shadow-lg border border-himalayan-blue/10 card-hover space-y-4">
+        <div class="glass-card rounded-2xl p-8 card-hover space-y-4">
           <div class="w-14 h-14 rounded-xl bg-himalayan-blue/10 flex items-center justify-center text-himalayan-blue" set:html={s.icon}></div>
           <h3 class="font-serif text-xl font-bold text-himalayan-blue">{s.title}</h3>
           <p class="text-slate-700 leading-relaxed">{s.desc}</p>

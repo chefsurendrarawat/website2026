@@ -26,7 +26,7 @@ const settings = await fetchSanity(siteSettingsQuery)
     <div class="container mx-auto max-w-7xl">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 stagger-children">
         {dishes.map((dish: any) => (
-          <details class="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all card-hover">
+          <details class="group glass-card rounded-xl overflow-hidden card-hover">
             <summary class="cursor-pointer list-none">
               <div class="relative h-56 overflow-hidden img-zoom">
                 {dish.image && <img src={urlFor(dish.image).width(600).height(400).url()} alt={dish.name} class="w-full h-full object-cover" loading="lazy" />}

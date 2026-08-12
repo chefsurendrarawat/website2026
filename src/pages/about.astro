@@ -60,7 +60,7 @@ const principles = [
                 <div class={`w-12 h-12 rounded-full bg-gradient-to-r ${colors[i % colors.length]} flex items-center justify-center shadow-lg`} set:html={iconMap[item.icon] || iconMap.Compass}></div>
               </div>
               <div class={`md:w-1/2 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
-                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-himalayan-blue/10 card-hover">
+                <div class="glass-card rounded-2xl p-6 md:p-8 card-hover">
                   <p class="text-sm font-bold text-gold-accent uppercase tracking-wide mb-1">{item.year}</p>
                   <p class="text-xs text-mountain-teal mb-3">{item.location}</p>
                   <h3 class="font-serif text-xl md:text-2xl font-bold text-himalayan-blue mb-3">{item.title}</h3>

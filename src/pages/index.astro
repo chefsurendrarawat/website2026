@@ -41,7 +41,7 @@ function getYouTubeId(url: string): string | null {
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
         {dishes.slice(0, 4).map((dish: any) => (
-          <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover group">
+          <div class="glass-card rounded-xl overflow-hidden card-hover group">
             <div class="relative h-48 overflow-hidden img-zoom">
               {dish.image && <img src={urlFor(dish.image).width(400).height(300).url()} alt={dish.name} class="w-full h-full object-cover" loading="lazy" />}
               <span class="absolute top-3 right-3 px-2 py-0.5 bg-himalayan-blue text-white text-xs font-semibold rounded-full">{dish.category}</span>
@@ -129,7 +129,7 @@ function getYouTubeId(url: string): string | null {
       </div>
       <div class="space-y-4 stagger-children">
         {press.slice(0, 3).map((item: any) => (
-          <div class="bg-white rounded-xl p-6 shadow-sm border border-himalayan-blue/10 card-hover">
+          <div class="glass-card rounded-xl p-6 card-hover">
             <h3 class="font-serif text-lg font-bold text-himalayan-blue mb-2">{item.title}</h3>
             <div class="flex items-center gap-3 text-sm text-slate-500">
               {item.publication && <span class="font-medium">{item.publication}</span>}
@@ -158,7 +158,7 @@ function getYouTubeId(url: string): string | null {
       <div class="ticker-mask">
         <div class="flex gap-6 animate-ticker">
           {[...reviews, ...reviews].map((r: any, i: number) => (
-            <div class="shrink-0 w-80 bg-white rounded-xl p-6 shadow-lg border border-himalayan-blue/10">
+            <div class="shrink-0 w-80 glass-card rounded-xl p-6">
               <div class="flex gap-0.5 mb-3">
                 {Array.from({length: r.rating || 5}).map(() => <svg class="w-4 h-4 text-gold-accent fill-gold-accent" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>

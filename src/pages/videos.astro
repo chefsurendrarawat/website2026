@@ -87,7 +87,7 @@ const featuredVideos = videos.filter((v: any) => v.channel && v.channel !== 'Che
         {chefVideos.map((v: any) => {
           const videoId = getYouTubeId(v.youtubeUrl || '')
           return (
-            <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer" class="block bg-white rounded-xl overflow-hidden shadow-lg border border-himalayan-blue/10 card-hover group">
+            <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer" class="block glass-card rounded-xl overflow-hidden card-hover group">
               {videoId && (
                 <div class="relative aspect-video overflow-hidden">
                   <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt={v.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
