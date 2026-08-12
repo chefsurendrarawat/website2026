@@ -10,6 +10,7 @@ export const video = defineType({
     defineField({ name: 'channel', title: 'Channel Name', type: 'string', description: 'Name of the YouTube channel (optional)' }),
     defineField({ name: 'date', title: 'Date', type: 'string' }),
     defineField({ name: 'description', title: 'Description', type: 'text', rows: 3 }),
+    defineField({ name: 'featured', title: 'Featured on Homepage', type: 'boolean', initialValue: false }),
     defineField({ name: 'order', title: 'Display Order', type: 'number' }),
   ],
   orderings: [{ title: 'Display Order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],

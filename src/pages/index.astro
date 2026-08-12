@@ -9,26 +9,61 @@ import SocialBanner from '@/components/SocialBanner.astro'
 import Footer from '@/components/Footer.astro'
 import { fetchSanity, urlFor } from '@/lib/sanity'
 import { getYouTubeId } from '@/lib/youtube'
-import { dishesQuery, reviewsQuery, videosQuery, pressQuery, siteSettingsQuery } from '@/lib/queries'
+import { dishesQuery, reviewsQuery, featuredVideosQuery, videosQuery, pressQuery, siteSettingsQuery } from '@/lib/queries'
 
 const dishes = await fetchSanity(dishesQuery) as any[]
 const reviews = await fetchSanity(reviewsQuery) as any[]
-const videos = await fetchSanity(videosQuery) as any[]
+const featuredVideos = await fetchSanity(featuredVideosQuery) as any[]
+const allVideos = await fetchSanity(videosQuery) as any[]
+const videos = featuredVideos.length > 0 ? featuredVideos : allVideos.slice(0, 3)
 const press = await fetchSanity(pressQuery) as any[]
 const settings = await fetchSanity(siteSettingsQuery)
+
+const faqs = [
+  { q: "What areas do you serve?", a: "Chicago metro including Wheaton, Naperville, Glen Ellyn, Lombard, and all of DuPage County. For larger events, available throughout Illinois." },
+  { q: "How far in advance should I book?", a: "2-4 weeks for private dining, 4-6 weeks for catering. Last-minute requests accommodated when possible." },
+  { q: "Do you accommodate dietary restrictions?", a: "Yes — vegetarian, vegan, gluten-free, dairy-free, nut allergies, and other dietary needs." },
+  { q: "What is the minimum guest count?", a: "No minimum for private dining. Catering typically serves groups of 20+." },
+  { q: "Do you offer tasting sessions?", a: "Yes, available for events of 50+ guests to ensure the menu matches your vision." },
+]
 ---
 <Layout>
   <Header slot="header" />
 
+  <!-- 1. Hero -->
   <Hero />
 
   <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+
+  <!-- 2. Book Banner -->
   <BookBanner />
 
   <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
+
+  <!-- 3. Organizations Ticker -->
   <OrganizationsTicker />
 
-  <!-- Recipes Preview -->
+  <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/10 to-transparent"></div>
+
+  <!-- 4. About Preview -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-sky-50">
+    <div class="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">The Chef</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">From Himalayas to Chicago</h2>
+        <p class="text-lg text-slate-700 leading-relaxed">An Indian born, U.S. based Executive Chef with mastery in traditional Himalayan cuisine and French patisserie. From rustic mountain dishes to intricate desserts, I craft personalized culinary experiences that honor heritage and innovation.</p>
+        <a href="/about" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors">
+          Read My Story
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+      <div class="flex justify-center">
+        <img src="/chef-surendra-in-black-uniform.jpg" alt="Chef Surendra Rawat" class="w-72 h-72 md:w-80 md:h-80 object-cover rounded-2xl shadow-2xl" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Recipes Preview -->
   {dishes.length > 0 && (
   <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-amber-50/30">
     <div class="container mx-auto max-w-7xl">
@@ -38,10 +73,15 @@ const settings = await fetchSanity(siteSettingsQuery)
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
         {dishes.slice(0, 4).map((dish: any) => (
-          <div class="glass-card rounded-xl overflow-hidden card-hover group">
+          <div class="glass-card rounded-xl overflow-hidden group cursor-pointer recipe-card" data-name={dish.name} data-description={dish.description || ''} data-category={dish.category || ''} data-prep={dish.prepTime || ''} data-cook={dish.cookTime || ''} data-servings={dish.servings || ''} data-tip={dish.chefTip || dish.chefNotes || ''} data-img={dish.image ? urlFor(dish.image).width(600).height(450).url() : ''}>
             <div class="relative h-48 overflow-hidden img-zoom">
-              {dish.image && <img src={urlFor(dish.image).width(400).height(300).url()} alt={dish.name} class="w-full h-full object-cover cursor-pointer" loading="lazy" data-lightbox />}
+              {dish.image && <img src={urlFor(dish.image).width(400).height(300).url()} alt={dish.name} class="w-full h-full object-cover" loading="lazy" />}
               <span class="absolute top-3 right-3 px-2 py-0.5 bg-himalayan-blue text-white text-xs font-semibold rounded-full">{dish.category}</span>
+              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                <div class="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                  <svg class="w-5 h-5 text-himalayan-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+                </div>
+              </div>
             </div>
             <div class="p-4">
               <h3 class="font-bold text-slate-800 mb-1 group-hover:text-himalayan-blue transition-colors">{dish.name}</h3>
@@ -60,37 +100,16 @@ const settings = await fetchSanity(siteSettingsQuery)
   </section>
   )}
 
-  <!-- About Preview -->
-  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-sky-50">
-    <div class="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-center">
-      <div class="space-y-6 reveal">
-        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">The Chef</span>
-        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">From Himalayas to Chicago</h2>
-        <p class="text-lg text-slate-700 leading-relaxed">An Indian born, U.S. based Executive Chef with mastery in traditional Himalayan cuisine and French patisserie. From rustic mountain dishes to intricate desserts, I craft personalized culinary experiences that honor heritage and innovation.</p>
-        <a href="/about" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors">
-          Read My Story
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-      </div>
-      <div class="flex justify-center">
-        <img src="/chef-surendra-in-black-uniform.jpg" alt="Chef Surendra Rawat" class="w-72 h-72 md:w-80 md:h-80 object-cover rounded-2xl shadow-2xl" loading="lazy" />
-      </div>
-    </div>
-  </section>
-
-  <!-- Book Ad Strip -->
-  <BookAd variant="strip" poster="/images/book/poster-3.jpg" />
-
-  <!-- Videos Preview -->
+  <!-- 6. Videos Preview -->
   {videos.length > 0 && (
   <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
     <div class="container mx-auto max-w-7xl">
       <div class="text-center mb-12 space-y-4 reveal">
         <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">Watch</span>
-        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">Latest Videos</h2>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">Featured Videos</h2>
       </div>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
-        {videos.slice(0, 3).map((v: any) => {
+        {videos.map((v: any) => {
           const id = getYouTubeId(v.youtubeUrl)
           return (
             <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl overflow-hidden shadow-lg card-hover">
@@ -119,7 +138,7 @@ const settings = await fetchSanity(siteSettingsQuery)
   </section>
   )}
 
-  <!-- Press Preview -->
+  <!-- 7. Press Preview -->
   {press.length > 0 && (
   <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-sky-50">
     <div class="container mx-auto max-w-4xl">
@@ -148,7 +167,7 @@ const settings = await fetchSanity(siteSettingsQuery)
   </section>
   )}
 
-  <!-- Reviews Ticker -->
+  <!-- 8. Reviews Ticker -->
   {reviews.length > 0 && (
   <section class="py-16 md:py-20 px-4 overflow-hidden">
     <div class="container mx-auto max-w-7xl">
@@ -172,23 +191,120 @@ const settings = await fetchSanity(siteSettingsQuery)
   </section>
   )}
 
-  <!-- CTA -->
-  <section class="py-16 md:py-24 px-4 bg-gradient-to-r from-himalayan-blue to-mountain-teal text-white text-center">
-    <div class="container mx-auto max-w-3xl space-y-6">
-      <h2 class="font-serif text-3xl md:text-4xl font-bold">Ready to Create Something Special?</h2>
-      <p class="text-lg text-white/80">From intimate dinners to grand celebrations, let me bring the flavors of the Himalayas to your table.</p>
-      <div class="flex flex-wrap gap-4 justify-center">
-        <a href="/contact" class="px-8 py-4 bg-white text-himalayan-blue font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105">Get in Touch</a>
-        <a href="/contact" class="px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-himalayan-blue transition-all">View Services</a>
+  <!-- 9. FAQ -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-sky-50/50">
+    <div class="container mx-auto max-w-3xl">
+      <div class="text-center mb-12 space-y-4 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">Got Questions?</span>
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-himalayan-blue">Frequently Asked Questions</h2>
+      </div>
+      <div class="space-y-3">
+        {faqs.map(faq => (
+          <details class="glass-card rounded-xl overflow-hidden group">
+            <summary class="cursor-pointer list-none px-6 py-5 flex items-center justify-between gap-4 font-medium text-himalayan-blue hover:text-gold-accent transition-colors">
+              {faq.q}
+              <svg class="w-5 h-5 shrink-0 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 text-slate-700 leading-relaxed text-sm">{faq.a}</div>
+          </details>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href="/contact" class="inline-flex items-center gap-2 px-8 py-4 bg-himalayan-blue text-white font-semibold rounded-full hover:bg-mountain-teal transition-colors shadow-lg">
+          More Questions? Contact Me
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
       </div>
     </div>
   </section>
 
+  <!-- 10. Social Banner -->
   <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
   <SocialBanner />
 
-  <!-- Book Ad Strip (bottom) -->
+  <!-- 11. Book Ad Strip (bottom) -->
   <BookAd variant="strip" poster="/images/book/poster-2.jpg" />
 
   <Footer slot="footer" settings={settings} />
 </Layout>
+
+<!-- Recipe Detail Modal -->
+<div id="recipe-modal" class="fixed inset-0 z-[99998] flex items-center justify-center p-4 opacity-0 pointer-events-none transition-opacity duration-300" style="background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);">
+  <div id="recipe-modal-inner" class="glass-card rounded-2xl overflow-hidden max-w-lg w-full max-h-[85vh] overflow-y-auto shadow-2xl transform scale-95 transition-transform duration-300">
+    <div class="relative">
+      <img id="modal-img" src="" alt="" class="w-full h-56 object-cover" />
+      <button id="recipe-modal-close" class="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/70 transition-colors" aria-label="Close">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <span id="modal-category" class="absolute bottom-3 left-3 px-3 py-1 bg-himalayan-blue text-white text-xs font-semibold rounded-full"></span>
+    </div>
+    <div class="p-6 space-y-4">
+      <h3 id="modal-name" class="font-serif text-2xl font-bold text-himalayan-blue"></h3>
+      <div id="modal-meta" class="flex flex-wrap gap-4 text-sm text-slate-600"></div>
+      <p id="modal-description" class="text-slate-700 leading-relaxed"></p>
+      <div id="modal-tip-wrap" class="hidden">
+        <div class="bg-gold-accent/10 border border-gold-accent/20 rounded-xl p-4">
+          <p class="text-xs font-bold text-gold-accent uppercase tracking-wider mb-1">Chef's Tip</p>
+          <p id="modal-tip" class="text-sm text-slate-700"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('recipe-modal')!
+  const modalInner = document.getElementById('recipe-modal-inner')!
+  const closeBtn = document.getElementById('recipe-modal-close')!
+
+  function openModal(card: HTMLElement) {
+    const name = card.dataset.name || ''
+    const desc = card.dataset.description || ''
+    const cat = card.dataset.category || ''
+    const prep = card.dataset.prep || ''
+    const cook = card.dataset.cook || ''
+    const servings = card.dataset.servings || ''
+    const tip = card.dataset.tip || ''
+    const img = card.dataset.img || ''
+
+    ;(document.getElementById('modal-name') as HTMLElement).textContent = name
+    ;(document.getElementById('modal-img') as HTMLImageElement).src = img
+    ;(document.getElementById('modal-img') as HTMLImageElement).alt = name
+    ;(document.getElementById('modal-category') as HTMLElement).textContent = cat
+    ;(document.getElementById('modal-description') as HTMLElement).textContent = desc
+
+    const meta: string[] = []
+    if (prep) meta.push(`⏱ Prep: ${prep}`)
+    if (cook) meta.push(`🔥 Cook: ${cook}`)
+    if (servings) meta.push(`🍽 Serves: ${servings}`)
+    ;(document.getElementById('modal-meta') as HTMLElement).innerHTML = meta.map(m => `<span class="flex items-center gap-1">${m}</span>`).join('')
+
+    const tipWrap = document.getElementById('modal-tip-wrap')!
+    const tipEl = document.getElementById('modal-tip')!
+    if (tip) {
+      tipEl.textContent = tip
+      tipWrap.classList.remove('hidden')
+    } else {
+      tipWrap.classList.add('hidden')
+    }
+
+    modal.classList.remove('pointer-events-none', 'opacity-0')
+    setTimeout(() => modalInner.classList.remove('scale-95'), 10)
+    document.body.style.overflow = 'hidden'
+  }
+
+  function closeModal() {
+    modal.classList.add('opacity-0')
+    modalInner.classList.add('scale-95')
+    setTimeout(() => modal.classList.add('pointer-events-none'), 300)
+    document.body.style.overflow = ''
+  }
+
+  document.querySelectorAll('.recipe-card').forEach(card => {
+    card.addEventListener('click', () => openModal(card as HTMLElement))
+  })
+
+  closeBtn.addEventListener('click', closeModal)
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal() })
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal() })
+</script>
