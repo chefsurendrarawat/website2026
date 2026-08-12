@@ -15,6 +15,7 @@ import Gallery from '@/components/Gallery.astro'
 import Contact from '@/components/Contact.astro'
 import Footer from '@/components/Footer.astro'
 import BookBanner from '@/components/BookBanner.astro'
+import SocialBanner from '@/components/SocialBanner.astro'
 import { fetchSanity } from '@/lib/sanity'
 import { dishesQuery, timelineQuery, pressQuery, reviewsQuery, awardsQuery, videosQuery, galleryQuery, siteSettingsQuery } from '@/lib/queries'
 
@@ -55,6 +56,8 @@ const settings = await fetchSanity(siteSettingsQuery)
     <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
     <Gallery items={gallery} />
     <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+    <SocialBanner />
+    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
     <Contact settings={settings} />
   </main>
   <Footer settings={settings} />

@@ -1,11 +1,13 @@
 {
-  "name": "Chef Surendra Rawat",
-  "short_name": "Chef Surendra",
+  "name": "Chef Surendra Rawat - Executive Chef Chicago",
+  "short_name": "Chef Rawat",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0066FF",
+  "background_color": "#ffffff",
+  "description": "Award-winning Executive Chef specializing in Himalayan, Indian, and Nepalese cuisine in Chicago",
   "icons": [
     { "src": "/icon-192.jpg", "sizes": "192x192", "type": "image/jpeg" },
     { "src": "/icon-512.jpg", "sizes": "512x512", "type": "image/jpeg" }
-  ],
-  "theme_color": "#0066FF",
-  "background_color": "#ffffff",
-  "display": "standalone"
+  ]
 }

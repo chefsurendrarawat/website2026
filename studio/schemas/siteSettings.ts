@@ -15,5 +15,7 @@ export const siteSettings = defineType({
     defineField({ name: 'youtube', title: 'YouTube URL', type: 'url' }),
     defineField({ name: 'linkedin', title: 'LinkedIn URL', type: 'url' }),
     defineField({ name: 'facebook', title: 'Facebook URL', type: 'url' }),
+    defineField({ name: 'whatsapp', title: 'WhatsApp Channel URL', type: 'url' }),
+    defineField({ name: 'medium', title: 'Medium URL', type: 'url' }),
   ],
 })
