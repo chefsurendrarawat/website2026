@@ -3,12 +3,8 @@ import Layout from '@/layouts/Layout.astro'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
 import { fetchSanity } from '@/lib/sanity'
+import { getYouTubeId } from '@/lib/youtube'
 import { videosQuery, siteSettingsQuery } from '@/lib/queries'
-
-function getYouTubeId(url: string): string | null {
-  const match = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/)
-  return match ? match[1] : null
-}
 
 const videos = await fetchSanity(videosQuery) as any[]
 const settings = await fetchSanity(siteSettingsQuery)

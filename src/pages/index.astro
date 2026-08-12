@@ -8,6 +8,7 @@ import OrganizationsTicker from '@/components/OrganizationsTicker.astro'
 import SocialBanner from '@/components/SocialBanner.astro'
 import Footer from '@/components/Footer.astro'
 import { fetchSanity, urlFor } from '@/lib/sanity'
+import { getYouTubeId } from '@/lib/youtube'
 import { dishesQuery, reviewsQuery, videosQuery, pressQuery, siteSettingsQuery } from '@/lib/queries'
 
 const dishes = await fetchSanity(dishesQuery) as any[]
@@ -15,11 +16,6 @@ const reviews = await fetchSanity(reviewsQuery) as any[]
 const videos = await fetchSanity(videosQuery) as any[]
 const press = await fetchSanity(pressQuery) as any[]
 const settings = await fetchSanity(siteSettingsQuery)
-
-function getYouTubeId(url: string): string | null {
-  const match = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/)
-  return match ? match[1] : null
-}
 ---
 <Layout>
   <Header slot="header" />
@@ -163,8 +159,8 @@ function getYouTubeId(url: string): string | null {
         <div class="flex gap-6 animate-ticker">
           {[...reviews, ...reviews].map((r: any, i: number) => (
             <div class="shrink-0 w-80 glass-card rounded-xl p-6">
-              <div class="flex gap-0.5 mb-3">
-                {Array.from({length: r.rating || 5}).map(() => <svg class="w-4 h-4 text-gold-accent fill-gold-accent" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
+              <div class="flex gap-0.5 mb-3" role="img" aria-label={`${r.rating || 5} out of 5 stars`}>
+                {Array.from({length: r.rating || 5}).map(() => <svg class="w-4 h-4 text-gold-accent fill-gold-accent" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
               </div>
               <p class="text-sm text-slate-700 leading-relaxed mb-3 line-clamp-4">"{r.text}"</p>
               <p class="text-sm font-semibold text-himalayan-blue">— {r.author}</p>
