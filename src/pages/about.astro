@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import Header from '@/components/Header.astro'
 import Footer from '@/components/Footer.astro'
-import ACF from '@/components/ACF.astro'
+import BookAd from '@/components/BookAd.astro'
 import { fetchSanity } from '@/lib/sanity'
 import { timelineQuery, siteSettingsQuery } from '@/lib/queries'
 
@@ -115,8 +115,8 @@ const principles = [
     </div>
   </section>
 
-  <!-- ACF -->
-  <ACF />
+  <!-- Book Ad -->
+  <BookAd variant="strip" poster="/images/book/poster-4.jpg" />
 
   <!-- CTA -->
   <section class="py-16 md:py-24 px-4 bg-gradient-to-r from-himalayan-blue to-mountain-teal text-white text-center">

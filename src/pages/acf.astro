@@ -1,0 +1,34 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import ACF from '@/components/ACF.astro'
+import { fetchSanity } from '@/lib/sanity'
+import { siteSettingsQuery } from '@/lib/queries'
+const settings = await fetchSanity(siteSettingsQuery)
+---
+<Layout title="American Culinary Federation | Chef Surendra Rawat - ACF Member Chicago" description="Chef Surendra Rawat's ACF membership, certifications, spotlight features, newsletter features, recipe contributions, and community cooking demonstrations." canonical="https://chefsurendrarawat.com/acf">
+  <Header slot="header" />
+
+  <section class="py-20 md:py-28 px-4 bg-gradient-to-br from-[#FFF8E7] to-white text-center relative overflow-hidden">
+    <div class="liquid-blob w-[400px] h-[400px] bg-gold-accent/15 top-10 right-10"></div>
+    <div class="liquid-blob w-[350px] h-[350px] bg-gold-accent/10 bottom-10 left-10" style="animation-delay:3s;"></div>
+    <div class="container mx-auto max-w-4xl space-y-4 relative z-10 reveal">
+      <span class="glass-pill text-gold-accent text-sm font-bold">Professional Excellence</span>
+      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold bg-gradient-to-r from-gold-accent via-[#FFD700] to-gold-accent bg-clip-text text-transparent pb-2">American Culinary Federation</h1>
+      <p class="text-lg text-slate-700 max-w-3xl mx-auto leading-relaxed">Active member and recognized contributor to the ACF Chicago Chapter — dedicated to professional excellence, community service, and culinary education.</p>
+    </div>
+  </section>
+
+  <ACF />
+
+  <section class="py-16 px-4 bg-gradient-to-r from-gold-accent to-[#FFD700] text-center">
+    <div class="container mx-auto max-w-3xl space-y-6">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-white">Interested in ACF Collaborations?</h2>
+      <p class="text-white/90">For culinary demonstrations, educational events, or professional partnerships.</p>
+      <a href="/contact" class="inline-flex px-8 py-4 bg-white text-gold-accent font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105">Get in Touch</a>
+    </div>
+  </section>
+
+  <Footer slot="footer" settings={settings} />
+</Layout>

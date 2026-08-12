@@ -1,0 +1,7 @@
+---
+interface Props {
+  variant?: 'gold' | 'blue'
+}
+const { variant = 'gold' } = Astro.props
+---
+<div class:list={["h-px bg-gradient-to-r from-transparent to-transparent", variant === 'gold' ? 'via-gold-accent/30' : 'via-himalayan-blue/20']}></div>
