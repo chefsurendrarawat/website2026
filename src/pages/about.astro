@@ -1,0 +1,134 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import ACF from '@/components/ACF.astro'
+import { fetchSanity } from '@/lib/sanity'
+import { timelineQuery, siteSettingsQuery } from '@/lib/queries'
+
+const timeline = await fetchSanity(timelineQuery) as any[]
+const settings = await fetchSanity(siteSettingsQuery)
+
+const iconMap: Record<string, string> = {
+  MapPin: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
+  GraduationCap: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>',
+  Briefcase: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>',
+  Globe: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',
+  Award: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>',
+  Compass: '<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" stroke-width="2"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/></svg>',
+}
+const colors = ["from-himalayan-blue to-mountain-teal", "from-mountain-teal to-sky-blue", "from-sky-blue to-peacock-green", "from-peacock-green to-gold-accent", "from-gold-accent to-himalayan-blue"]
+
+const principles = [
+  { title: "Cooking with Love", description: "My mother taught me: 'Good food is made with love, not just with a bunch of spices.' Every dish carries that lesson." },
+  { title: "Personalized for You", description: "I believe in customization and personalization through my Himalayan artistry. I make what people like — each dish tailored to create your perfect experience." },
+  { title: "Artisan Pastries & Desserts", description: "Trained in French patisserie techniques, I create desserts that balance precision with creativity—from molten lava cakes to delicate no-bake cheesecakes." },
+]
+---
+<Layout title="About Chef Surendra Rawat | Journey from Himalayas to Chicago" description="Chef Surendra Rawat's journey from Uttarakhand, India to becoming an award-winning Executive Chef in Chicago. ACF member, 16+ years culinary experience." canonical="https://chefsurendrarawat.com/about">
+  <Header slot="header" />
+
+  <!-- Hero -->
+  <section class="relative py-20 md:py-32 px-4 bg-gradient-to-br from-sky-50 via-blue-50/80 to-slate-100">
+    <div class="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">The Story</span>
+        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-himalayan-blue leading-tight">From the Himalayas to Chicago</h1>
+        <p class="text-lg text-slate-700 leading-relaxed">An Indian born, U.S. based Executive Chef with mastery in traditional Himalayan cuisine and French patisserie. From rustic mountain dishes to intricate desserts, I craft personalized culinary experiences that honor heritage and innovation.</p>
+      </div>
+      <div class="flex justify-center">
+        <img src="/chef-surendra-rawat-hero.jpg" alt="Chef Surendra Rawat" class="w-72 h-72 md:w-96 md:h-96 object-cover rounded-full shadow-2xl ring-4 ring-white/50" loading="eager" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Journey Timeline -->
+  {timeline.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-white">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-16 space-y-4 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">The Path</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">My Journey</h2>
+        <p class="text-lg text-mountain-teal max-w-3xl mx-auto">From the mountains to international stages, a story of resilience and never giving up.</p>
+      </div>
+      <div class="relative">
+        <div class="absolute left-1/2 -translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-himalayan-blue via-gold-accent to-mountain-teal hidden md:block"></div>
+        <div class="space-y-12 md:space-y-0">
+          {timeline.map((item: any, i: number) => (
+            <div class={`relative md:flex items-center ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:mb-16`}>
+              <div class="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10">
+                <div class={`w-12 h-12 rounded-full bg-gradient-to-r ${colors[i % colors.length]} flex items-center justify-center shadow-lg`} set:html={iconMap[item.icon] || iconMap.Compass}></div>
+              </div>
+              <div class={`md:w-1/2 ${i % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'}`}>
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-himalayan-blue/10 card-hover">
+                  <p class="text-sm font-bold text-gold-accent uppercase tracking-wide mb-1">{item.year}</p>
+                  <p class="text-xs text-mountain-teal mb-3">{item.location}</p>
+                  <h3 class="font-serif text-xl md:text-2xl font-bold text-himalayan-blue mb-3">{item.title}</h3>
+                  <p class="text-slate-700 leading-relaxed">{item.description}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Philosophy -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-ice-blue/20">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-12 space-y-4 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">Culinary Beliefs</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">Philosophy of Flavors</h2>
+        <p class="text-lg text-mountain-teal max-w-3xl mx-auto">When someone eats my food, I want them to feel something special: curiosity, excitement, or like they're home.</p>
+      </div>
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-6">
+          <p class="text-lg text-slate-700 leading-relaxed">When someone eats my food, I hope they feel something special. If it's their first time trying Indian cuisine, I want them to feel curious and excited. If they're missing home, I want them to feel comforted.</p>
+          <p class="text-lg text-slate-700 leading-relaxed">I know people don't always give you a second chance, so I make every meal count. I'm not just cooking food, I'm taking care of people and sharing my culture and heart.</p>
+          <div class="space-y-6 pt-4 stagger-children">
+            {principles.map(p => (
+              <div class="flex gap-4 group card-hover rounded-xl p-4 -ml-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-himalayan-blue/10 to-gold-accent/10 flex items-center justify-center shrink-0 border-2 border-himalayan-blue/20">
+                  <svg class="w-6 h-6 text-himalayan-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                </div>
+                <div>
+                  <h3 class="font-serif text-lg font-semibold text-himalayan-blue mb-1">{p.title}</h3>
+                  <p class="text-sm text-slate-700 leading-relaxed">{p.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="space-y-4">
+            <div class="rounded-2xl overflow-hidden shadow-lg img-zoom"><img src="/images/design-mode/Photoroom_20251011_234529.jpg" alt="Chef Surendra Rawat" class="w-full aspect-square object-cover" loading="lazy" /></div>
+            <div class="rounded-2xl overflow-hidden shadow-lg img-zoom"><img src="/beautifully-plated-indian-cuisine.jpg" alt="Plating" class="w-full aspect-[4/3] object-cover" loading="lazy" /></div>
+          </div>
+          <div class="space-y-4 pt-8">
+            <div class="rounded-2xl overflow-hidden shadow-lg img-zoom"><img src="/traditional-spices-and-ingredients.jpg" alt="Traditional Spices" class="w-full aspect-[4/3] object-cover" loading="lazy" /></div>
+            <div class="rounded-2xl overflow-hidden shadow-lg img-zoom"><img src="/himalayan-mountain-landscape.jpg" alt="Himalayas" class="w-full aspect-square object-cover" loading="lazy" /></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACF -->
+  <ACF />
+
+  <!-- CTA -->
+  <section class="py-16 md:py-24 px-4 bg-gradient-to-r from-himalayan-blue to-mountain-teal text-white text-center">
+    <div class="container mx-auto max-w-3xl space-y-6">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold">Want to Experience My Cuisine?</h2>
+      <p class="text-lg text-white/80">From intimate dinners to grand celebrations, let me bring the flavors of the Himalayas to your table.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/contact" class="px-8 py-4 bg-white text-himalayan-blue font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105">Get in Touch</a>
+        <a href="/services" class="px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-himalayan-blue transition-all">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" settings={settings} />
+</Layout>

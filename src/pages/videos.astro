@@ -1,0 +1,128 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import { fetchSanity } from '@/lib/sanity'
+import { videosQuery, siteSettingsQuery } from '@/lib/queries'
+
+function getYouTubeId(url: string): string | null {
+  const match = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/)
+  return match ? match[1] : null
+}
+
+const videos = await fetchSanity(videosQuery) as any[]
+const settings = await fetchSanity(siteSettingsQuery)
+
+const chefVideos = videos.filter((v: any) => v.channel === 'Chef Surendra Rawat')
+const featuredVideos = videos.filter((v: any) => v.channel && v.channel !== 'Chef Surendra Rawat')
+---
+<Layout title="Videos | Chef Surendra Rawat - Cooking Demos & Features" description="Watch Chef Surendra Rawat's cooking demonstrations, interviews, and features across YouTube channels. Himalayan cuisine brought to life on screen." canonical="https://chefsurendrarawat.com/videos">
+  <Header slot="header" />
+
+  <!-- Hero -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-ice-blue to-white">
+    <div class="container mx-auto max-w-7xl text-center reveal">
+      <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">Watch & Learn</span>
+      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-himalayan-blue mt-3">Video Gallery</h1>
+      <p class="text-lg md:text-xl text-mountain-teal max-w-3xl mx-auto mt-4 leading-relaxed">Cooking demonstrations, interviews, and features — bringing Himalayan cuisine to life on screen.</p>
+    </div>
+  </section>
+
+  <!-- Featured In Section -->
+  {featuredVideos.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-[#FFFDF5]">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-12 md:mb-16 reveal">
+        <div class="inline-flex items-center gap-2 mb-4">
+          <svg class="w-6 h-6 text-gold-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <span class="text-sm md:text-base font-bold text-gold-accent uppercase tracking-wider">Featured & Interviewed By</span>
+          <svg class="w-6 h-6 text-gold-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">Third-Party Features</h2>
+        <p class="text-lg text-mountain-teal max-w-2xl mx-auto mt-3">Interviews and features by other channels showcasing Chef Surendra's culinary artistry.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 stagger-children">
+        {featuredVideos.map((v: any) => {
+          const videoId = getYouTubeId(v.youtubeUrl || '')
+          return (
+            <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer" class="block bg-gradient-to-br from-[#FFF8E7] via-[#F8E9C6] to-[#FFEAA7] border-2 border-gold-accent/30 rounded-2xl overflow-hidden card-hover group">
+              {videoId && (
+                <div class="relative aspect-video overflow-hidden">
+                  <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt={v.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors flex items-center justify-center">
+                    <div class="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                      <svg class="w-7 h-7 text-red-600 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div class="p-6 space-y-3">
+                <div class="flex items-center gap-2">
+                  <span class="px-3 py-1 bg-gold-accent/20 text-gold-accent text-xs font-bold rounded-full uppercase tracking-wide">{v.channel}</span>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-himalayan-blue leading-tight">{v.title}</h3>
+                {v.description && <p class="text-sm text-slate-600 leading-relaxed">{v.description}</p>}
+                <span class="inline-flex items-center text-sm font-semibold text-gold-accent group-hover:text-himalayan-blue transition-colors">
+                  Watch <span class="ml-1 group-hover:translate-x-1 transition-transform">&rarr;</span>
+                </span>
+              </div>
+            </a>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- My YouTube Channel Section -->
+  {chefVideos.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-sky-50">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-12 md:mb-16 reveal">
+        <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">My Channel</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue mt-3">My YouTube Channel</h2>
+        <p class="text-lg text-mountain-teal max-w-2xl mx-auto mt-3">Original cooking demonstrations, recipes, and behind-the-scenes content.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+        {chefVideos.map((v: any) => {
+          const videoId = getYouTubeId(v.youtubeUrl || '')
+          return (
+            <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer" class="block bg-white rounded-xl overflow-hidden shadow-lg border border-himalayan-blue/10 card-hover group">
+              {videoId && (
+                <div class="relative aspect-video overflow-hidden">
+                  <img src={`https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`} alt={v.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors flex items-center justify-center">
+                    <div class="w-14 h-14 rounded-full bg-red-600/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                      <svg class="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div class="p-5 space-y-2">
+                <h3 class="font-serif text-lg font-bold text-himalayan-blue leading-tight group-hover:text-mountain-teal transition-colors">{v.title}</h3>
+                <div class="flex items-center gap-2 text-sm text-slate-500">
+                  {v.date && <span>{v.date}</span>}
+                </div>
+              </div>
+            </a>
+          )
+        })}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Subscribe CTA -->
+  <section class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-red-50 to-white">
+    <div class="container mx-auto max-w-7xl text-center reveal">
+      <h2 class="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-himalayan-blue mb-4">Never Miss a Recipe</h2>
+      <p class="text-lg text-slate-600 max-w-xl mx-auto mb-8">Subscribe to Chef Surendra Rawat's YouTube channel for authentic Himalayan recipes, cooking tips, and behind-the-scenes content.</p>
+      <a href="https://www.youtube.com/@ChefSurendraRawat?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition-colors shadow-lg hover:shadow-xl hover:scale-105 transition-transform">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        Subscribe on YouTube
+      </a>
+    </div>
+  </section>
+
+  <Footer slot="footer" settings={settings} />
+</Layout>

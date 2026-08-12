@@ -1,0 +1,90 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import { fetchSanity, urlFor } from '@/lib/sanity'
+import { awardsQuery, pressQuery, siteSettingsQuery } from '@/lib/queries'
+
+const awards = await fetchSanity(awardsQuery) as any[]
+const press = await fetchSanity(pressQuery) as any[]
+const settings = await fetchSanity(siteSettingsQuery)
+---
+<Layout title="Awards & Press | Chef Surendra Rawat - ACF Certified Chef Chicago" description="Awards, certifications, and media features for Chef Surendra Rawat. ACF Bronze Medal, Marquis Who's Who, ServSafe, and press publications." canonical="https://chefsurendrarawat.com/awards">
+  <Header slot="header" />
+
+  <section class="py-20 md:py-28 px-4 bg-gradient-to-br from-sky-50 to-white text-center">
+    <div class="container mx-auto max-w-4xl space-y-4 reveal">
+      <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">Recognition</span>
+      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-himalayan-blue">Awards & Press</h1>
+      <p class="text-lg text-slate-700 max-w-2xl mx-auto">Recognized for culinary excellence, food safety standards, and commitment to authentic cuisine.</p>
+    </div>
+  </section>
+
+  <!-- Awards -->
+  {awards.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-12 reveal">
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-himalayan-blue">Awards & Certifications</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+        {awards.map((award: any) => (
+          <div class="rounded-xl overflow-hidden bg-white shadow-lg border border-himalayan-blue/10 card-hover group">
+            {award.image && (
+              <div class="relative h-48 overflow-hidden bg-gray-50 img-zoom">
+                <img src={urlFor(award.image).width(400).height(300).url()} alt={award.title} class="w-full h-full object-cover" loading="lazy" />
+              </div>
+            )}
+            <div class="p-5 space-y-2">
+              <h3 class="font-serif text-base font-bold text-slate-800 leading-tight">{award.title}</h3>
+              <p class="text-xs font-semibold text-mountain-teal">{award.organization}</p>
+              {award.description && <p class="text-xs text-slate-600 line-clamp-2">{award.description}</p>}
+              {award.date && <p class="text-xs text-gold-accent font-medium">{award.date}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Press -->
+  {press.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-sky-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12 reveal">
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-himalayan-blue">Published Articles & Media</h2>
+        <p class="text-lg text-mountain-teal mt-4 max-w-2xl mx-auto">Featured in prestigious culinary publications, festivals, and media outlets.</p>
+      </div>
+      <div class="space-y-3">
+        {press.map((item: any) => (
+          <details class="border border-himalayan-blue/20 rounded-xl overflow-hidden bg-white group">
+            <summary class="cursor-pointer list-none px-6 py-5 flex items-start justify-between gap-4">
+              <h3 class="font-serif text-lg font-bold text-himalayan-blue group-hover:text-gold-accent transition-colors leading-tight">{item.title}</h3>
+              <svg class="w-5 h-5 text-himalayan-blue shrink-0 mt-1 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </summary>
+            <div class="px-6 pb-5 border-t border-himalayan-blue/10 pt-4 space-y-3">
+              <div class="flex flex-wrap items-center gap-3 text-sm">
+                {item.publication && <span class="font-semibold text-himalayan-blue">{item.publication}</span>}
+                {item.date && <span class="text-mountain-teal">{item.date}</span>}
+              </div>
+              {item.description && <p class="text-slate-700 leading-relaxed">{item.description}</p>}
+              {item.link && <a href={item.link} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors text-sm">Read Article <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></a>}
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+  )}
+
+  <section class="py-16 px-4 text-center">
+    <div class="container mx-auto max-w-3xl space-y-6 reveal">
+      <h2 class="font-serif text-2xl md:text-3xl font-bold text-himalayan-blue">Interested in Featuring Chef Surendra?</h2>
+      <p class="text-slate-700">For media inquiries, interviews, or collaboration opportunities.</p>
+      <a href="/contact" class="inline-flex px-8 py-4 bg-himalayan-blue text-white font-semibold rounded-full hover:bg-mountain-teal transition-colors shadow-lg">Get in Touch</a>
+    </div>
+  </section>
+
+  <Footer slot="footer" settings={settings} />
+</Layout>

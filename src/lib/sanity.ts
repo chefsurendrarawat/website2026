@@ -13,6 +13,6 @@ export function urlFor(source: any) {
   return builder.image(source)
 }
 
-export async function fetchSanity<T>(query: string): Promise<T> {
-  return client.fetch<T>(query)
+export async function fetchSanity<T>(query: string, params?: Record<string, any>): Promise<T> {
+  return client.fetch<T>(query, params)
 }

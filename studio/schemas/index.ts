@@ -1,4 +1,5 @@
 import { dish } from './dish'
+import { recipe } from './recipe'
 import { timeline } from './timeline'
 import { press } from './press'
 import { review } from './review'
@@ -8,8 +9,12 @@ import { hero } from './hero'
 import { siteSettings } from './siteSettings'
 import { video } from './video'
 import { galleryItem } from './galleryItem'
+import { blogPost } from './blogPost'
 
 export const schemaTypes = [
+  siteSettings,
+  recipe,
+  blogPost,
   dish,
   timeline,
   press,
@@ -17,7 +22,6 @@ export const schemaTypes = [
   award,
   communityDemo,
   hero,
-  siteSettings,
   video,
   galleryItem,
 ]

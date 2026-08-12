@@ -1,0 +1,72 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import { fetchSanity } from '@/lib/sanity'
+import { siteSettingsQuery } from '@/lib/queries'
+const settings = await fetchSanity(siteSettingsQuery)
+
+const services = [
+  { title: "Private Chef Services", desc: "Personalized in-home dining with authentic Himalayan and Indian cuisine. Perfect for date nights, family gatherings, or special celebrations.", icon: '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>' },
+  { title: "Catering", desc: "Professional catering for events of all sizes. Traditional Indian, Himalayan, and fusion menus tailored to your event.", icon: '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' },
+  { title: "Cooking Classes", desc: "Interactive cooking demonstrations and hands-on culinary education. Learn authentic techniques from a professional chef.", icon: '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>' },
+  { title: "Menu Consultation", desc: "Custom menu development for restaurants, events, and food businesses. Bring authentic Himalayan flavors to your establishment.", icon: '<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>' },
+]
+
+const stats = [
+  { value: "16+", label: "Years Experience" },
+  { value: "ACF", label: "Certified Chef" },
+  { value: "100+", label: "Events Catered" },
+  { value: "5★", label: "Client Reviews" },
+]
+---
+<Layout title="Private Chef Services Chicago | Catering & Cooking Classes" description="Hire Chef Surendra Rawat for private dining, catering, cooking classes, and menu consultation in Chicago, Wheaton, Naperville, and DuPage County." canonical="https://chefsurendrarawat.com/services">
+  <Header slot="header" />
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({"@context":"https://schema.org","@type":"ProfessionalService","name":"Chef Surendra Rawat - Professional Chef Services","description":"Private chef services, catering, cooking classes, and menu consultation in Chicago metro area.","telephone":"+1-224-261-5963","email":"chefsurendrar@gmail.com","address":{"@type":"PostalAddress","streetAddress":"242 E Geneva Rd","addressLocality":"Wheaton","addressRegion":"IL","postalCode":"60187","addressCountry":"US"},"priceRange":"$$$","areaServed":["Chicago","Wheaton","Naperville","Glen Ellyn","DuPage County"]})} />
+  </Fragment>
+
+  <section class="py-20 md:py-32 px-4 bg-gradient-to-br from-sky-50 to-white">
+    <div class="container mx-auto max-w-7xl text-center space-y-6 reveal">
+      <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">Professional Services</span>
+      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold text-himalayan-blue">Chef Services</h1>
+      <p class="text-lg md:text-xl text-slate-700 max-w-3xl mx-auto">From intimate dinners to grand celebrations — authentic Himalayan cuisine crafted for your occasion.</p>
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto max-w-7xl grid sm:grid-cols-2 gap-8 stagger-children">
+      {services.map(s => (
+        <div class="bg-white rounded-2xl p-8 shadow-lg border border-himalayan-blue/10 card-hover space-y-4">
+          <div class="w-14 h-14 rounded-xl bg-himalayan-blue/10 flex items-center justify-center text-himalayan-blue" set:html={s.icon}></div>
+          <h3 class="font-serif text-xl font-bold text-himalayan-blue">{s.title}</h3>
+          <p class="text-slate-700 leading-relaxed">{s.desc}</p>
+          <a href="/contact" class="inline-flex items-center gap-2 text-sm font-semibold text-himalayan-blue hover:text-gold-accent transition-colors">
+            Inquire Now <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+          </a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-16 px-4 bg-gradient-to-r from-himalayan-blue to-royal-blue text-white">
+    <div class="container mx-auto max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      {stats.map(s => (
+        <div class="space-y-2">
+          <p class="text-3xl md:text-4xl font-bold text-gold-accent">{s.value}</p>
+          <p class="text-sm text-white/80">{s.label}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="py-16 md:py-24 px-4 text-center">
+    <div class="container mx-auto max-w-3xl space-y-6 reveal">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold text-himalayan-blue">Ready to Create Something Special?</h2>
+      <p class="text-lg text-slate-700">Tell me about your event and I'll craft a personalized culinary experience.</p>
+      <a href="/contact" class="inline-flex px-8 py-4 bg-himalayan-blue text-white font-semibold rounded-full hover:bg-mountain-teal transition-colors shadow-lg hover:shadow-xl hover:scale-105">Get a Quote</a>
+    </div>
+  </section>
+
+  <Footer slot="footer" settings={settings} />
+</Layout>

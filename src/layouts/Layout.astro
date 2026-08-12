@@ -4,290 +4,92 @@ import '@/styles/global.css'
 interface Props {
   title?: string
   description?: string
+  canonical?: string
+  image?: string
+  type?: string
 }
 
 const {
-  title = "Chef Surendra Rawat | Executive Chef in Chicago - Award-Winning Himalayan Cuisine",
-  description = "Chef Surendra Rawat - Executive Chef at India Palace Restaurant, Wheaton IL. Award-winning Himalayan, Indian, and Nepalese cuisine. ACF member, 16+ years experience. Private chef services, catering, cooking classes."
+  title = "Chef Surendra Rawat | Executive Chef Chicago - Himalayan Cuisine",
+  description = "Chef Surendra Rawat - Executive Chef at India Palace Restaurant, Wheaton IL. Award-winning Himalayan, Indian & Nepalese cuisine. ACF member, 16+ years experience.",
+  canonical = "https://chefsurendrarawat.com",
+  image = "https://chefsurendrarawat.com/chef-surendra-rawat-hero.jpg",
+  type = "website"
 } = Astro.props
+
+const currentPath = Astro.url.pathname
 ---
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5, user-scalable=yes" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content={description} />
   <title>{title}</title>
-  <link rel="canonical" href="https://chefsurendrarawat.com" />
+  <link rel="canonical" href={canonical} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet" />
   <link rel="icon" type="image/jpeg" sizes="192x192" href="/icon-192.jpg" />
-  <link rel="icon" sizes="32x32" href="/icon-192.jpg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.jpg" />
   <link rel="manifest" href="/manifest.json" />
   <link rel="sitemap" href="/sitemap.xml" />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="theme-color" content="#0066FF" />
   <meta name="author" content="Chef Surendra Rawat" />
-  <meta name="creator" content="Chef Surendra Rawat" />
-  <meta name="publisher" content="Chef Surendra Rawat" />
   <meta name="geo.region" content="US-IL" />
   <meta name="geo.placename" content="Wheaton, Illinois" />
-  <meta name="geo.position" content="41.8781;-87.6298" />
-  <meta name="ICBM" content="41.8781, -87.6298" />
-  <meta name="classification" content="Business" />
-  <meta name="category" content="food" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="keywords" content="Chef Surendra Rawat, Executive Chef Chicago, Himalayan Cuisine, Indian Restaurant Wheaton IL, India Palace Restaurant, ACF Chef, Uttarakhand Recipes, Private Dining Chicago, Himalayan Chef, personal chef Chicago, private chef services Chicago, catering chef Chicago, cooking classes Chicago, Nepali food Chicago, vegetarian chef Chicago, best Indian chef in Chicago, DuPage County chef, chef Wheaton IL, private chef Naperville, ACF certified chef, Indian cooking demonstration, chef for events Chicago, authentic Indian food Chicago, North Indian chef, vegan Indian chef" />
+  <meta name="geo.position" content="41.8661;-88.1070" />
+  <meta name="keywords" content="Chef Surendra Rawat, Executive Chef Chicago, Himalayan Cuisine, India Palace Restaurant, ACF Chef, private chef Chicago, catering Wheaton IL" />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://chefsurendrarawat.com" />
-  <meta property="og:image" content="https://chefsurendrarawat.com/chef-surendra-rawat-hero.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Chef Surendra Rawat - Executive Chef specializing in Himalayan Indian Nepalese Cuisine in Chicago" />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={image} />
   <meta property="og:locale" content="en_US" />
-  <meta property="og:site_name" content="Chef Surendra Rawat - Executive Chef Chicago" />
+  <meta property="og:site_name" content="Chef Surendra Rawat" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content="https://chefsurendrarawat.com/chef-surendra-rawat-hero.jpg" />
+  <meta name="twitter:image" content={image} />
   <meta name="twitter:creator" content="@ChefSurendraRawat" />
-  <meta name="twitter:site" content="@ChefSurendraRawat" />
-
-  <!-- Person Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Person",
     "@id": "https://chefsurendrarawat.com/#person",
     "name": "Chef Surendra Rawat",
-    "givenName": "Surendra",
-    "familyName": "Rawat",
-    "alternateName": "Surendra Rawat",
     "jobTitle": "Executive Chef",
     "url": "https://chefsurendrarawat.com",
     "image": "https://chefsurendrarawat.com/chef-surendra-rawat-hero.jpg",
-    "description": "Award-winning Executive Chef specializing in authentic Himalayan, Indian, and Nepalese cuisine with over 16 years of culinary excellence in Chicago.",
-    "sameAs": [
-      "https://www.instagram.com/surendrasinghrawat91",
-      "https://www.youtube.com/@ChefSurendraRawat",
-      "https://www.linkedin.com/in/surendra-rawat-834455129",
-      "https://www.facebook.com/share/1AHqjGcMYF",
-      "https://medium.com/@chefsurendrarawat"
-    ],
-    "worksFor": {
-      "@type": "Restaurant",
-      "name": "India Palace Restaurant",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "242 E Geneva Rd",
-        "addressLocality": "Wheaton",
-        "addressRegion": "IL",
-        "postalCode": "60187",
-        "addressCountry": "US"
-      },
-      "telephone": "+1-224-261-5963"
-    },
-    "memberOf": [
-      { "@type": "Organization", "name": "American Culinary Federation", "url": "https://www.acfchefs.org" },
-      { "@type": "Organization", "name": "Indian Culinary Forum" },
-      { "@type": "Organization", "name": "Chefs Guild of India" }
-    ],
-    "knowsAbout": ["Himalayan Cuisine", "Indian Cuisine", "Nepalese Cuisine", "North Indian Cooking", "Vegetarian Cooking", "French Patisserie", "Culinary Arts", "Menu Development", "Food Safety"],
-    "award": ["Marquis Who's Who Honored Listee", "ACF Certified Chef", "ServSafe Certified", "ACF Chicago Spotlight Member"]
+    "sameAs": ["https://www.instagram.com/surendrasinghrawat91","https://www.youtube.com/@ChefSurendraRawat","https://www.linkedin.com/in/surendra-rawat-834455129","https://www.facebook.com/share/1AHqjGcMYF","https://medium.com/@chefsurendrarawat"],
+    "worksFor": {"@type":"Restaurant","name":"India Palace Restaurant","address":{"@type":"PostalAddress","streetAddress":"242 E Geneva Rd","addressLocality":"Wheaton","addressRegion":"IL","postalCode":"60187","addressCountry":"US"},"telephone":"+1-224-261-5963"},
+    "memberOf": [{"@type":"Organization","name":"American Culinary Federation"},{"@type":"Organization","name":"Indian Culinary Forum"},{"@type":"Organization","name":"Chefs Guild of India"}],
+    "knowsAbout": ["Himalayan Cuisine","Indian Cuisine","Nepalese Cuisine","French Patisserie","Vegetarian Cooking"],
+    "award": ["ACF Bronze Medal 2026","Marquis Who's Who Honored Listee","ServSafe Certified"]
   })} />
-
-  <!-- FAQPage Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Who is Chef Surendra Rawat?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Chef Surendra Rawat is an award-winning Executive Chef in Chicago specializing in authentic Himalayan, Indian, and Nepalese cuisine. He is ACF certified with over 16 years of culinary experience at India Palace in Wheaton, IL." }
-      },
-      {
-        "@type": "Question",
-        "name": "What type of cuisine does Chef Surendra Rawat specialize in?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Chef Surendra Rawat specializes in Himalayan cuisine, authentic North Indian food, traditional Nepalese dishes, and French patisserie. He brings flavors from his hometown Uttarakhand in the Himalayan region to Chicago." }
-      },
-      {
-        "@type": "Question",
-        "name": "Where can I find Chef Surendra Rawat in Chicago?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Chef Surendra Rawat serves as Executive Chef at India Palace Restaurant at 242 E Geneva Rd, Wheaton, IL 60187, and offers private chef services throughout Chicago, Naperville, Glen Ellyn, and DuPage County." }
-      },
-      {
-        "@type": "Question",
-        "name": "Does Chef Surendra Rawat offer private chef services?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes, Chef Surendra Rawat offers private chef services, catering, cooking demonstrations, and culinary classes throughout the Chicago metropolitan area. Contact him for personalized dining experiences." }
-      },
-      {
-        "@type": "Question",
-        "name": "What certifications does Chef Surendra Rawat have?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Chef Surendra Rawat is an active member of the American Culinary Federation (ACF), holds ServSafe certification, is a member of the Indian Culinary Forum, Chefs Guild of India, and received the Marquis Who's Who Honored Listee recognition." }
-      }
-    ]
-  })} />
-
-  <!-- ProfessionalService Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "@id": "https://chefsurendrarawat.com/#professionalservice",
-    "name": "Chef Surendra Rawat - Professional Chef Services",
-    "image": "https://chefsurendrarawat.com/chef-surendra-rawat-hero.jpg",
-    "description": "Professional culinary services including private chef experiences, catering, cooking demonstrations, and culinary education specializing in Himalayan, Indian, and Nepalese cuisine.",
-    "priceRange": "$$$",
-    "telephone": "+1-224-261-5963",
-    "email": "chefsurendrar@gmail.com",
-    "address": { "@type": "PostalAddress", "streetAddress": "242 E Geneva Rd", "addressLocality": "Wheaton", "addressRegion": "IL", "postalCode": "60187", "addressCountry": "US" },
-    "geo": { "@type": "GeoCoordinates", "latitude": "41.8661", "longitude": "-88.1070" },
-    "areaServed": [
-      { "@type": "City", "name": "Chicago" },
-      { "@type": "City", "name": "Wheaton" },
-      { "@type": "City", "name": "Naperville" },
-      { "@type": "City", "name": "Glen Ellyn" },
-      { "@type": "City", "name": "Lombard" }
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Professional Chef Services",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Private Chef Services", "description": "Personalized in-home dining experiences with authentic Himalayan and Indian cuisine" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Catering Services", "description": "Professional catering for events with traditional Indian and Nepalese dishes" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Cooking Classes", "description": "Interactive cooking demonstrations and culinary education" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Menu Consultation", "description": "Custom menu development for restaurants and special events" } }
-      ]
-    },
-    "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "09:00", "closes": "21:00" }
-  })} />
-
-  <!-- LocalBusiness Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "@id": "https://chefsurendrarawat.com/#restaurant",
-    "name": "India Palace Restaurant",
-    "image": "https://chefsurendrarawat.com/chef-surendra-rawat-hero.jpg",
-    "telephone": "+1-224-261-5963",
-    "email": "chefsurendrar@gmail.com",
-    "address": { "@type": "PostalAddress", "streetAddress": "242 E Geneva Rd", "addressLocality": "Wheaton", "addressRegion": "IL", "postalCode": "60187", "addressCountry": "US" },
-    "geo": { "@type": "GeoCoordinates", "latitude": "41.8661", "longitude": "-88.1070" },
-    "url": "https://chefsurendrarawat.com",
-    "priceRange": "$$",
-    "servesCuisine": ["Himalayan", "Indian", "Nepalese", "North Indian", "Vegetarian"],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.2", "reviewCount": "200", "bestRating": "5" }
-  })} />
-
-  <!-- Product/Review Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Chef Surendra Rawat - Personal Chef Services",
-    "description": "Professional personal chef services specializing in Himalayan, Indian, and Nepalese cuisine in Chicago",
-    "image": "https://chefsurendrarawat.com/chef-surendra-rawat-hero.jpg",
-    "brand": { "@type": "Brand", "name": "Chef Surendra Rawat" },
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "10", "bestRating": "5", "worstRating": "1" },
-    "review": [
-      { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Sarah M." }, "datePublished": "2024-11-15", "reviewBody": "Amazing experience! The flavors were authentic and the presentation was beautiful. Chef Rawat truly brings the Himalayas to Chicago." },
-      { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Michael R." }, "datePublished": "2024-10-22", "reviewBody": "Best Indian food I've had in Chicago! The attention to detail and traditional cooking methods really shine through." },
-      { "@type": "Review", "reviewRating": { "@type": "Rating", "ratingValue": "5", "bestRating": "5" }, "author": { "@type": "Person", "name": "Priya K." }, "datePublished": "2024-12-05", "reviewBody": "Chef Surendra is a master of his craft. The Himalayan dishes remind me of home. Highly recommend his private chef services!" }
-    ]
-  })} />
-
-  <!-- WebSite Schema -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://chefsurendrarawat.com/#website",
     "url": "https://chefsurendrarawat.com",
-    "name": "Chef Surendra Rawat - Executive Chef Chicago",
-    "description": "Award-winning Executive Chef specializing in Himalayan, Indian, and Nepalese cuisine in Chicago",
+    "name": "Chef Surendra Rawat",
     "inLanguage": "en-US",
-    "publisher": { "@id": "https://chefsurendrarawat.com/#person" }
+    "publisher": {"@id":"https://chefsurendrarawat.com/#person"}
   })} />
-
-  <!-- BreadcrumbList Schema -->
-  <script type="application/ld+json" set:html={JSON.stringify({
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://chefsurendrarawat.com" }]
-  })} />
+  <slot name="head" />
 </head>
-<body class="bg-white text-gray-900 overflow-x-hidden">
+<body class="bg-white text-gray-900 overflow-x-hidden font-sans">
   <a href="#main-content" class="skip-link">Skip to content</a>
   <div class="scroll-progress"></div>
-  <slot />
-
-  <!-- Social Follow Popup -->
-  <div id="social-popup" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4">
-    <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" id="popup-backdrop"></div>
-    <div class="relative max-w-md w-full bg-gradient-to-br from-white to-blue-50 rounded-2xl shadow-2xl overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="popup-card">
-      <button id="popup-close" class="absolute top-4 right-4 z-10 w-8 h-8 rounded-full bg-white/90 hover:bg-white shadow-lg flex items-center justify-center transition-all hover:scale-110" aria-label="Close">
-        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
-      <div class="p-8 text-center space-y-6">
-        <div class="w-24 h-24 mx-auto rounded-full overflow-hidden border-4 border-[#0066FF] shadow-xl">
-          <img src="/images/design-mode/IMG_8120.JPG.jpeg" alt="Chef Surendra Rawat" class="w-full h-full object-cover" width="96" height="96" />
-        </div>
-        <div class="space-y-2">
-          <h3 class="text-2xl md:text-3xl font-serif font-bold text-[#0066FF]">Follow My Culinary Journey</h3>
-          <p class="text-gray-700">Get exclusive recipes, cooking tips, and behind-the-scenes content from my kitchen</p>
-        </div>
-        <div class="flex flex-col gap-3">
-          <a href="https://www.instagram.com/surendrasinghrawat91" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 px-6 py-3 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold rounded-full hover:shadow-lg transition-all hover:scale-105">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            Follow on Instagram
-          </a>
-          <a href="https://www.youtube.com/@ChefSurendraRawat?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-3 px-6 py-3 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-full hover:shadow-lg transition-all hover:scale-105">
-            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            Subscribe on YouTube
-          </a>
-        </div>
-        <p class="text-sm text-gray-500">Join thousands of food lovers already following!</p>
-      </div>
-    </div>
-  </div>
-
+  <slot name="header" />
+  <main id="main-content">
+    <slot />
+  </main>
+  <slot name="footer" />
   <script>
-    // IntersectionObserver for scroll-triggered reveal animations
     const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
-
-    // Social popup - show after 15s, once per session
-    if (!sessionStorage.getItem('popup-shown')) {
-      setTimeout(() => {
-        const popup = document.getElementById('social-popup');
-        const card = document.getElementById('popup-card');
-        if (popup && card) {
-          popup.classList.remove('hidden');
-          popup.classList.add('flex');
-          requestAnimationFrame(() => {
-            card.style.transform = 'scale(1)';
-            card.style.opacity = '1';
-          });
-          sessionStorage.setItem('popup-shown', '1');
-        }
-      }, 15000);
-    }
-    document.getElementById('popup-close')?.addEventListener('click', closePopup);
-    document.getElementById('popup-backdrop')?.addEventListener('click', closePopup);
-    function closePopup() {
-      const popup = document.getElementById('social-popup');
-      const card = document.getElementById('popup-card');
-      if (card) { card.style.transform = 'scale(0.95)'; card.style.opacity = '0'; }
-      setTimeout(() => { if (popup) { popup.classList.add('hidden'); popup.classList.remove('flex'); } }, 300);
-    }
   </script>
 </body>
 </html>

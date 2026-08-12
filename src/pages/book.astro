@@ -1,0 +1,132 @@
+---
+import Layout from '@/layouts/Layout.astro'
+import Header from '@/components/Header.astro'
+import Footer from '@/components/Footer.astro'
+import { fetchSanity } from '@/lib/sanity'
+import { siteSettingsQuery } from '@/lib/queries'
+
+const settings = await fetchSanity(siteSettingsQuery)
+
+const highlights = [
+  { title: 'Himalayan Recipes', description: 'Authentic dishes passed down through generations in the mountain villages of Uttarakhand.', icon: 'recipe' },
+  { title: 'Personal Stories', description: 'The journey from a small village kitchen to commanding professional kitchens across the world.', icon: 'story' },
+  { title: 'Cultural Heritage', description: 'Preserving Pahari traditions, ingredients, and cooking techniques for future generations.', icon: 'heritage' },
+  { title: 'Professional Journey', description: 'From apprentice to Executive Chef — lessons learned across 16+ years in the culinary industry.', icon: 'journey' },
+]
+---
+<Layout title="The Mountain Kitchen | Book by Chef Surendra Rawat" description="The Mountain Kitchen - A Journey from a Himalayan Village to an American Kitchen. The debut book by Chef Surendra Singh Rawat featuring authentic Himalayan recipes and personal stories." canonical="https://chefsurendrarawat.com/book">
+  <Header slot="header" />
+
+  <!-- Full-width Hero -->
+  <section class="relative min-h-[500px] md:min-h-[600px] flex items-center overflow-hidden">
+    <img src="/the-mountain-kitchen-banner.webp" alt="The Mountain Kitchen - A Journey from a Himalayan Village to an American Kitchen" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-r from-black/75 via-black/50 to-black/30"></div>
+    <div class="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+      <div class="max-w-2xl space-y-6 animate-fade-in-up">
+        <span class="inline-block px-4 py-1.5 bg-gold-accent/20 backdrop-blur-sm border border-gold-accent/30 rounded-full text-gold-accent text-sm font-semibold tracking-wider uppercase">Debut Book</span>
+        <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight">The Mountain Kitchen</h1>
+        <p class="text-xl md:text-2xl text-white/80 font-light italic">A Journey from a Himalayan Village to an American Kitchen</p>
+        <p class="text-lg text-white/70">By Chef Surendra Singh Rawat</p>
+        <div class="flex flex-wrap gap-4 pt-4">
+          <a href="/contact" class="group px-8 py-4 bg-gold-accent text-white font-bold rounded-full hover:bg-gold-accent/90 transition-all hover:scale-105 shadow-lg">
+            Pre-Order Now
+            <span class="inline-block ml-2 group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </a>
+          <a href="#about-book" class="px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold rounded-full hover:bg-white hover:text-himalayan-blue transition-all">
+            Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About the Book -->
+  <section id="about-book" class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-[#FFFDF5]">
+    <div class="container mx-auto max-w-7xl">
+      <div class="grid md:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="reveal">
+          <span class="text-sm md:text-base font-bold text-gold-accent uppercase tracking-wider">About the Book</span>
+          <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue mt-3 mb-6">A Story of Passion, Heritage & Flavor</h2>
+          <div class="space-y-4 text-lg text-slate-600 leading-relaxed">
+            <p>A Journey from a Himalayan Village to an American Kitchen — the inspiring story of Chef Surendra Singh Rawat, who grew up in a remote mountain village in Uttarakhand, India, where food was not just sustenance but a sacred connection to the land.</p>
+            <p>From learning ancient recipes at his grandmother's wood-fired hearth to mastering international culinary techniques in professional kitchens across India and America, this book traces a remarkable journey of perseverance, passion, and the transformative power of food.</p>
+            <p>Featuring over 50 authentic Himalayan recipes never before published, personal stories from the mountains, and insights into a culinary heritage that is rapidly disappearing — this is more than a cookbook. It is a love letter to the Himalayas.</p>
+          </div>
+        </div>
+        <div class="relative reveal-right">
+          <div class="bg-gradient-to-br from-[#FFF8E7] via-[#F8E9C6] to-[#FFEAA7] rounded-2xl p-8 md:p-12 border-2 border-gold-accent/20 shadow-xl">
+            <div class="text-center space-y-4">
+              <svg class="w-16 h-16 mx-auto text-gold-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+              <h3 class="font-serif text-2xl font-bold text-himalayan-blue">The Mountain Kitchen</h3>
+              <p class="text-mountain-teal italic">Coming Soon</p>
+              <div class="pt-4 border-t border-gold-accent/20 space-y-2 text-sm text-slate-600">
+                <p><strong>Author:</strong> Chef Surendra Singh Rawat</p>
+                <p><strong>Category:</strong> Cookbook / Memoir</p>
+                <p><strong>Cuisine:</strong> Himalayan, Pahari, Indian</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Highlights -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#FFFDF5] to-white">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-12 md:mb-16 reveal">
+        <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">What's Inside</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue mt-3">Key Highlights</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+        {highlights.map((item) => (
+          <div class="bg-white rounded-xl p-6 md:p-8 shadow-lg border border-himalayan-blue/10 card-hover text-center space-y-4">
+            <div class="w-14 h-14 mx-auto rounded-full bg-gradient-to-br from-himalayan-blue/10 to-mountain-teal/10 flex items-center justify-center">
+              {item.icon === 'recipe' && <svg class="w-7 h-7 text-himalayan-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>}
+              {item.icon === 'story' && <svg class="w-7 h-7 text-himalayan-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>}
+              {item.icon === 'heritage' && <svg class="w-7 h-7 text-himalayan-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>}
+              {item.icon === 'journey' && <svg class="w-7 h-7 text-himalayan-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>}
+            </div>
+            <h3 class="font-serif text-lg font-bold text-himalayan-blue">{item.title}</h3>
+            <p class="text-sm text-slate-600 leading-relaxed">{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Press / Review -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-ice-blue">
+    <div class="container mx-auto max-w-7xl">
+      <div class="max-w-3xl mx-auto text-center reveal">
+        <span class="text-sm md:text-base font-bold text-mountain-teal uppercase tracking-wider">In the Press</span>
+        <h2 class="font-serif text-3xl sm:text-4xl font-bold text-himalayan-blue mt-3 mb-6">What They're Saying</h2>
+        <div class="bg-white rounded-2xl p-8 md:p-10 shadow-lg border border-himalayan-blue/10 card-hover">
+          <div class="space-y-4">
+            <svg class="w-10 h-10 mx-auto text-gold-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10H14.017zM0 21v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151C7.563 6.068 6 8.789 6 11h4v10H0z"/></svg>
+            <p class="text-lg text-slate-700 leading-relaxed italic">"Chef Surendra Singh Rawat reveals debut book on Himalayan cuisine — a celebration of mountain flavors and the culinary heritage of Uttarakhand."</p>
+            <p class="text-sm font-semibold text-mountain-teal">BW Hotelier</p>
+            <a href="https://www.bwhotelier.com/article/chef-surendra-singh-rawat-reveals-debut-book-on-himalayan-cuisine-615589" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold text-himalayan-blue hover:text-mountain-teal transition-colors mt-2">
+              Read Full Article
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pre-order CTA -->
+  <section class="py-16 md:py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-himalayan-blue to-royal-blue">
+    <div class="container mx-auto max-w-7xl text-center reveal">
+      <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">Get Your Copy</h2>
+      <p class="text-lg text-white/80 max-w-xl mx-auto mb-8">Be among the first to experience the flavors of the Himalayas. Pre-order The Mountain Kitchen today.</p>
+      <a href="/contact" class="inline-flex items-center gap-2 px-10 py-4 bg-gold-accent text-white font-bold rounded-full hover:bg-gold-accent/90 transition-all hover:scale-105 shadow-lg text-lg">
+        Pre-Order Now
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <Footer slot="footer" settings={settings} />
+</Layout>

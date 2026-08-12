@@ -2,63 +2,190 @@
 import Layout from '@/layouts/Layout.astro'
 import Header from '@/components/Header.astro'
 import Hero from '@/components/Hero.astro'
-import OrganizationsTicker from '@/components/OrganizationsTicker.astro'
-import Journey from '@/components/Journey.astro'
-import Philosophy from '@/components/Philosophy.astro'
-import Dishes from '@/components/Dishes.astro'
-import ACF from '@/components/ACF.astro'
-import Awards from '@/components/Awards.astro'
-import Press from '@/components/Press.astro'
-import Restaurant from '@/components/Restaurant.astro'
-import Videos from '@/components/Videos.astro'
-import Gallery from '@/components/Gallery.astro'
-import Contact from '@/components/Contact.astro'
-import Footer from '@/components/Footer.astro'
 import BookBanner from '@/components/BookBanner.astro'
+import OrganizationsTicker from '@/components/OrganizationsTicker.astro'
 import SocialBanner from '@/components/SocialBanner.astro'
-import { fetchSanity } from '@/lib/sanity'
-import { dishesQuery, timelineQuery, pressQuery, reviewsQuery, awardsQuery, videosQuery, galleryQuery, siteSettingsQuery } from '@/lib/queries'
+import Footer from '@/components/Footer.astro'
+import { fetchSanity, urlFor } from '@/lib/sanity'
+import { dishesQuery, reviewsQuery, videosQuery, pressQuery, siteSettingsQuery } from '@/lib/queries'
 
-const dishes = await fetchSanity(dishesQuery)
-const timeline = await fetchSanity(timelineQuery)
-const press = await fetchSanity(pressQuery)
-const reviews = await fetchSanity(reviewsQuery)
-const awards = await fetchSanity(awardsQuery)
-const videos = await fetchSanity(videosQuery)
-const gallery = await fetchSanity(galleryQuery)
+const dishes = await fetchSanity(dishesQuery) as any[]
+const reviews = await fetchSanity(reviewsQuery) as any[]
+const videos = await fetchSanity(videosQuery) as any[]
+const press = await fetchSanity(pressQuery) as any[]
 const settings = await fetchSanity(siteSettingsQuery)
+
+function getYouTubeId(url: string): string | null {
+  const match = url?.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/))([a-zA-Z0-9_-]{11})/)
+  return match ? match[1] : null
+}
 ---
 <Layout>
-  <Header />
-  <main id="main-content" class="w-full overflow-hidden">
-    <h1 class="sr-only">Chef Surendra Rawat - Executive Chef in Chicago | Award-Winning Himalayan, Indian, and Nepalese Cuisine Expert</h1>
-    <Hero />
-    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
-    <BookBanner />
-    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
-    <OrganizationsTicker />
-    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
-    <Journey items={timeline} />
-    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
-    <Philosophy />
-    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
-    <Dishes items={dishes} />
-    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
-    <ACF />
-    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
-    <Awards items={awards} />
-    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
-    <Restaurant reviews={reviews} />
-    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
-    <Press items={press} />
-    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
-    <Videos items={videos} />
-    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
-    <Gallery items={gallery} />
-    <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
-    <SocialBanner />
-    <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
-    <Contact settings={settings} />
-  </main>
-  <Footer settings={settings} />
+  <Header slot="header" />
+
+  <Hero />
+
+  <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+  <BookBanner />
+
+  <div class="h-px bg-gradient-to-r from-transparent via-himalayan-blue/20 to-transparent"></div>
+  <OrganizationsTicker />
+
+  <!-- Recipes Preview -->
+  {dishes.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white to-amber-50/30">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-12 space-y-4 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">From My Kitchen</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">Signature Recipes</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+        {dishes.slice(0, 4).map((dish: any) => (
+          <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover group">
+            <div class="relative h-48 overflow-hidden img-zoom">
+              {dish.image && <img src={urlFor(dish.image).width(400).height(300).url()} alt={dish.name} class="w-full h-full object-cover" loading="lazy" />}
+              <span class="absolute top-3 right-3 px-2 py-0.5 bg-himalayan-blue text-white text-xs font-semibold rounded-full">{dish.category}</span>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-slate-800 mb-1 group-hover:text-himalayan-blue transition-colors">{dish.name}</h3>
+              <p class="text-sm text-slate-600 line-clamp-2">{dish.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href="/recipes" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors">
+          View All {dishes.length} Recipes
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- About Preview -->
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-sky-50">
+    <div class="container mx-auto max-w-7xl grid lg:grid-cols-2 gap-12 items-center">
+      <div class="space-y-6 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">The Chef</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">From Himalayas to Chicago</h2>
+        <p class="text-lg text-slate-700 leading-relaxed">An Indian born, U.S. based Executive Chef with mastery in traditional Himalayan cuisine and French patisserie. From rustic mountain dishes to intricate desserts, I craft personalized culinary experiences that honor heritage and innovation.</p>
+        <a href="/about" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors">
+          Read My Story
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+      <div class="flex justify-center">
+        <img src="/chef-surendra-in-black-uniform.jpg" alt="Chef Surendra Rawat" class="w-72 h-72 md:w-80 md:h-80 object-cover rounded-2xl shadow-2xl" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Videos Preview -->
+  {videos.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-12 space-y-4 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">Watch</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">Latest Videos</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+        {videos.slice(0, 3).map((v: any) => {
+          const id = getYouTubeId(v.youtubeUrl)
+          return (
+            <a href={v.youtubeUrl} target="_blank" rel="noopener noreferrer" class="group block bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+              <div class="relative aspect-video bg-gray-100">
+                {id && <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt={v.title} class="w-full h-full object-cover" loading="lazy" />}
+                <div class="absolute inset-0 flex items-center justify-center">
+                  <div class="w-14 h-14 rounded-full bg-red-600/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="p-4">
+                <h3 class="text-sm font-medium text-slate-800 group-hover:text-himalayan-blue transition-colors line-clamp-2">{v.title}</h3>
+              </div>
+            </a>
+          )
+        })}
+      </div>
+      <div class="text-center mt-10">
+        <a href="/videos" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors">
+          Watch More
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Press Preview -->
+  {press.length > 0 && (
+  <section class="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-sky-50">
+    <div class="container mx-auto max-w-4xl">
+      <div class="text-center mb-12 space-y-4 reveal">
+        <span class="text-sm font-bold text-mountain-teal uppercase tracking-wider">In the News</span>
+        <h2 class="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-himalayan-blue">Press & Media</h2>
+      </div>
+      <div class="space-y-4 stagger-children">
+        {press.slice(0, 3).map((item: any) => (
+          <div class="bg-white rounded-xl p-6 shadow-sm border border-himalayan-blue/10 card-hover">
+            <h3 class="font-serif text-lg font-bold text-himalayan-blue mb-2">{item.title}</h3>
+            <div class="flex items-center gap-3 text-sm text-slate-500">
+              {item.publication && <span class="font-medium">{item.publication}</span>}
+              {item.date && <span>{item.date}</span>}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div class="text-center mt-10">
+        <a href="/awards" class="inline-flex items-center gap-2 text-himalayan-blue font-semibold hover:text-gold-accent transition-colors">
+          View All Awards & Articles
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- Reviews Ticker -->
+  {reviews.length > 0 && (
+  <section class="py-16 md:py-20 px-4 overflow-hidden">
+    <div class="container mx-auto max-w-7xl">
+      <div class="text-center mb-10 reveal">
+        <h2 class="font-serif text-3xl md:text-4xl font-bold text-himalayan-blue">What People Say</h2>
+      </div>
+      <div class="ticker-mask">
+        <div class="flex gap-6 animate-ticker">
+          {[...reviews, ...reviews].map((r: any, i: number) => (
+            <div class="shrink-0 w-80 bg-white rounded-xl p-6 shadow-lg border border-himalayan-blue/10">
+              <div class="flex gap-0.5 mb-3">
+                {Array.from({length: r.rating || 5}).map(() => <svg class="w-4 h-4 text-gold-accent fill-gold-accent" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>)}
+              </div>
+              <p class="text-sm text-slate-700 leading-relaxed mb-3 line-clamp-4">"{r.text}"</p>
+              <p class="text-sm font-semibold text-himalayan-blue">— {r.author}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+  )}
+
+  <!-- CTA -->
+  <section class="py-16 md:py-24 px-4 bg-gradient-to-r from-himalayan-blue to-mountain-teal text-white text-center">
+    <div class="container mx-auto max-w-3xl space-y-6">
+      <h2 class="font-serif text-3xl md:text-4xl font-bold">Ready to Create Something Special?</h2>
+      <p class="text-lg text-white/80">From intimate dinners to grand celebrations, let me bring the flavors of the Himalayas to your table.</p>
+      <div class="flex flex-wrap gap-4 justify-center">
+        <a href="/contact" class="px-8 py-4 bg-white text-himalayan-blue font-semibold rounded-full hover:shadow-xl transition-all hover:scale-105">Get in Touch</a>
+        <a href="/services" class="px-8 py-4 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-himalayan-blue transition-all">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="h-px bg-gradient-to-r from-transparent via-gold-accent/30 to-transparent"></div>
+  <SocialBanner />
+
+  <Footer slot="footer" settings={settings} />
 </Layout>
